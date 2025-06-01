@@ -4,11 +4,11 @@ using UnityEngine.UI;
 public class PlayerHealth : MonoBehaviour
 {
     public int maxHealth = 100;
-    public int currentHealth;
+    public float currentHealth;
 
     public GameObject loseScreen;
 
-    public int GetCurrentHealth()
+    public float GetCurrentHealth()
     {
         return currentHealth;
     }
@@ -17,7 +17,7 @@ public class PlayerHealth : MonoBehaviour
         currentHealth = maxHealth;
         if (loseScreen == null)
         {
-            GameObject found = GameObject.Find("LosePanel");
+            GameObject found = GameObject.Find("LoseScreen");
             if (found != null)
             {
                 loseScreen = found;
@@ -27,9 +27,11 @@ public class PlayerHealth : MonoBehaviour
     }
 
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(float amount)
     {
-        currentHealth -= damage;
+        currentHealth -= amount;
+        Debug.Log("Player took damage. Current Health: " + currentHealth);
+
         if (currentHealth <= 0)
         {
             Die();

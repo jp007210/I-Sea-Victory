@@ -23,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
         // Entrada do jogador
         inputForward = Input.GetAxis("Vertical");   // W/S ou ?/?
         inputTurn = Input.GetAxis("Horizontal");    // A/D ou ?/?
+        Debug.Log("Input Forward: " + Input.GetAxis("Vertical"));
     }
 
     void FixedUpdate()

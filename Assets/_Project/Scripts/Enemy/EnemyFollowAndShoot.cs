@@ -2,6 +2,11 @@ using UnityEngine;
 
 public class EnemyFollowAndShoot : MonoBehaviour
 {
+    public enum EnemyAttackType
+    {
+        Ranged,
+        Melee
+    }
     public Transform player;
     public float moveSpeed = 5f;
     public float stopDistance = 10f;
@@ -10,7 +15,13 @@ public class EnemyFollowAndShoot : MonoBehaviour
     public float fireCooldown = 2f;
     public float bulletSpeed = 15f;
 
+    public float meleeDamage = 10f;
+    public float meleeCooldown = 1f;
+
+    public EnemyAttackType attackType = EnemyAttackType.Ranged;
+
     private float fireTimer;
+    private float meleeTimer;
 
     private void Start()
     {
@@ -24,24 +35,26 @@ public class EnemyFollowAndShoot : MonoBehaviour
     {
         if (player == null) return;
 
-        // Calcular dist�ncia do player
         float distance = Vector3.Distance(transform.position, player.position);
 
-        // Movimentar em dire��o ao player se estiver longe
-        if (distance > stopDistance)
+        // Movimentação
+        if (attackType == EnemyAttackType.Ranged)
         {
-            Vector3 direction = (player.position - transform.position).normalized;
-            transform.position += direction * moveSpeed * Time.deltaTime;
+            if (distance > stopDistance)
+            {
+                MoveTowardsPlayer();
+            }
+        }
+        else if (attackType == EnemyAttackType.Melee)
+        {
+            MoveTowardsPlayer();
         }
 
-        // Olhar para o player
-        Vector3 lookDir = player.position - transform.position;
-        lookDir.y = 0f; // evitar inclina��o vertical
-        if (lookDir != Vector3.zero)
-            transform.rotation = Quaternion.LookRotation(lookDir);
+        // Rotacionar para o player
+        LookAtPlayer();
 
-        // Atirar se dentro da dist�ncia de ataque
-        if (distance <= stopDistance)
+        // Ataque
+        if (attackType == EnemyAttackType.Ranged && distance <= stopDistance)
         {
             fireTimer -= Time.deltaTime;
             if (fireTimer <= 0f)
@@ -50,6 +63,30 @@ public class EnemyFollowAndShoot : MonoBehaviour
                 fireTimer = fireCooldown;
             }
         }
+
+        if (attackType == EnemyAttackType.Melee && distance <= 1.5f) // ajuste a distância de contato
+        {
+            meleeTimer -= Time.deltaTime;
+            if (meleeTimer <= 0f)
+            {
+                MeleeAttack();
+                meleeTimer = meleeCooldown;
+            }
+        }
+    }
+
+    void MoveTowardsPlayer()
+    {
+        Vector3 direction = (player.position - transform.position).normalized;
+        transform.position += direction * moveSpeed * Time.deltaTime;
+    }
+
+    void LookAtPlayer()
+    {
+        Vector3 lookDir = player.position - transform.position;
+        lookDir.y = 0f;
+        if (lookDir != Vector3.zero)
+            transform.rotation = Quaternion.LookRotation(lookDir);
     }
 
     void Shoot()
@@ -60,6 +97,17 @@ public class EnemyFollowAndShoot : MonoBehaviour
         GameObject bullet = Instantiate(bulletPrefab, shootPoint.position, Quaternion.LookRotation(dir));
         Rigidbody rb = bullet.GetComponent<Rigidbody>();
         if (rb != null)
-            rb.linearVelocity = dir * bulletSpeed;
+            rb.velocity = dir * bulletSpeed;
+    }
+
+    void MeleeAttack()
+    {
+        Debug.Log("Melee Attack on player!");
+        // Aqui você aplica o dano no player
+        var playerHealth = player.GetComponent<PlayerHealth>();
+        if (playerHealth != null)
+        {
+            playerHealth.TakeDamage();
+        }
     }
 }

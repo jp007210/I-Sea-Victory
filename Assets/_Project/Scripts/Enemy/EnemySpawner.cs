@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public GameObject enemyPrefab;
+    public GameObject[] enemyPrefabs;    // Array com vários tipos de inimigos
     public Transform player;
     public float spawnRadius = 30f;
     public float minDistance = 10f;
@@ -28,7 +28,7 @@ public class EnemySpawner : MonoBehaviour
 
     void SpawnEnemy()
     {
-        if (player == null) return;
+        if (player == null || enemyPrefabs.Length == 0) return;
 
         Vector3 spawnPos;
 
@@ -39,7 +39,9 @@ public class EnemySpawner : MonoBehaviour
         }
         while (Vector3.Distance(spawnPos, player.position) < minDistance);
 
-        Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
+        // Escolhe um prefab aleatório para spawnar
+        int index = Random.Range(0, enemyPrefabs.Length);
+        Instantiate(enemyPrefabs[index], spawnPos, Quaternion.identity);
     }
 
     int CountEnemies()
