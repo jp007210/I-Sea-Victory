@@ -1,15 +1,16 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
     public int score = 0;
-    public int scoreToWin = 10000000;
+    public int scoreToWin = 10; // Exemplo: 10 pontos para ativar o boss
+    public string bossSceneName = "NavioPirata"; // Nome exato da cena do boss
 
     public TextMeshProUGUI scoreText;
-    public GameObject winPanel;
 
     void Awake()
     {
@@ -26,7 +27,7 @@ public class GameManager : MonoBehaviour
 
         if (score >= scoreToWin)
         {
-            ShowWinPanel();
+            LoadBossScene();
         }
     }
 
@@ -36,11 +37,9 @@ public class GameManager : MonoBehaviour
             scoreText.text = "Score: " + score.ToString();
     }
 
-    void ShowWinPanel()
+    void LoadBossScene()
     {
-        if (winPanel != null)
-        {
-            winPanel.SetActive(true);
-        }
+        Debug.Log("Carregando cena do boss...");
+        SceneManager.LoadScene(bossSceneName);
     }
 }

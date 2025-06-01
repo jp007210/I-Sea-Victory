@@ -2,15 +2,36 @@ using UnityEngine;
 
 public class NavioPirataHealth : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public int maxHealth = 200;
+    private int currentHealth;
+
+    public NavioPirataAttack attackSystem;
+    public int GetCurrentHealth()
     {
-        
+        return currentHealth;
     }
 
-    // Update is called once per frame
-    void Update()
+    void Start()
     {
-        
+        currentHealth = maxHealth;
+    }
+
+    public void TakeDamage(int damage)
+    {
+        if (attackSystem != null && !attackSystem.isVulnerable)
+            return;
+
+        currentHealth -= damage;
+
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+    }
+
+    void Die()
+    {
+        Destroy(gameObject);
+        Debug.Log("MiniBoss derrotado!");
     }
 }

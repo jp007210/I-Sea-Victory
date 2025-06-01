@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
@@ -20,6 +20,15 @@ public class Bullet : MonoBehaviour
                 eh.TakeDamage(damage);
             }
             Destroy(gameObject);
+        }
+        if (other.CompareTag("Boss")) // 👈 Tag correta!
+        {
+            NavioPirataHealth bossHealth = other.GetComponent<NavioPirataHealth>();
+            if (bossHealth != null)
+            {
+                bossHealth.TakeDamage(damage);
+            }
+            Destroy(gameObject); // destrói o projétil
         }
     }
 }

@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  offset: {x: 0, y: 10, z: -7}
+  offset: {x: 0, y: 8, z: -7}
   followSpeed: 5
   rotationSpeed: 5
   tiltAngle: 20
