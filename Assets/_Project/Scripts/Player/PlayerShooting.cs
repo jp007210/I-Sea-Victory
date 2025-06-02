@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.VFX;
 
 public class PlayerShooting : MonoBehaviour
@@ -7,6 +8,8 @@ public class PlayerShooting : MonoBehaviour
     public Transform firePoint;
     public VisualEffect harpoonVFX;
     public float bulletSpeed = 25f;
+    public AudioClip shootClip;
+    public AudioSource audioSource;
 
     void Update()
     {
@@ -60,6 +63,8 @@ public class PlayerShooting : MonoBehaviour
                 bulletScript.harpoonVFX = vfx;
                 bulletScript.firePoint = firePoint;
             }
+            if (audioSource && shootClip)
+                audioSource.PlayOneShot(shootClip);
 
             Destroy(bullet, 3f);
         }

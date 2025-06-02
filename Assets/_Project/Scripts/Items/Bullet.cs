@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.VFX;
 
 public class Bullet : MonoBehaviour
@@ -6,6 +7,8 @@ public class Bullet : MonoBehaviour
     public VisualEffect harpoonVFX;
     public Transform firePoint;
     public int damage = 20;
+    public AudioClip impactClip;
+    public AudioSource audioSource;
 
     void Start()
     {
@@ -33,10 +36,13 @@ public class Bullet : MonoBehaviour
                 eh.TakeDamage(damage);
                 hit = true;
             }
+            PlayImpactSound();
         }
 
         if (other.CompareTag("Boss"))
         {
+            if (audioSource && impactClip)
+                AudioSource.PlayClipAtPoint(impactClip, transform.position);
             VisualEffect impact = Instantiate(harpoonVFX, transform.position, Quaternion.identity);
             impact.SendEvent("OnImpact");
             Destroy(gameObject);
@@ -46,6 +52,7 @@ public class Bullet : MonoBehaviour
                 boss.TakeDamage(damage);
                 hit = true;
             }
+            PlayImpactSound();
         }
 
         if (hit && harpoonVFX != null)
@@ -55,5 +62,24 @@ public class Bullet : MonoBehaviour
         }
 
         Destroy(gameObject);
+    }
+    void PlayImpactSound()
+    {
+        if (audioSource != null && audioSource.clip != null)
+        {
+            if (audioSource != null && audioSource.clip != null)
+            {
+                // Cria um objeto temporário para tocar o som
+                GameObject tempAudio = new GameObject("ImpactSound");
+                tempAudio.transform.position = transform.position;
+
+                AudioSource tempSource = tempAudio.AddComponent<AudioSource>();
+                tempSource.clip = audioSource.clip;
+                tempSource.volume = audioSource.volume;
+                tempSource.Play();
+
+                Destroy(tempAudio, tempSource.clip.length); // destrói o som após terminar
+            }
+        }
     }
 }
