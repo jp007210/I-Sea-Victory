@@ -1,14 +1,16 @@
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class PlayerShooting : MonoBehaviour
 {
     public GameObject bulletPrefab;
     public Transform firePoint;
-    public float bulletSpeed = 20f;
+    public VisualEffect harpoonVFX;
+    public float bulletSpeed = 25f;
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0)) // Bot�o esquerdo do mouse
+        if (Input.GetMouseButtonDown(0))
         {
             Shoot();
         }
@@ -16,9 +18,26 @@ public class PlayerShooting : MonoBehaviour
 
     void Shoot()
     {
-        if (bulletPrefab == null || firePoint == null) return;
+        harpoonVFX.transform.position = firePoint.position;
+        harpoonVFX.transform.rotation = firePoint.rotation;
+        harpoonVFX.Play();
+        Debug.Log("Tentando atirar...");
 
-        // Calcular dire��o do mouse no mundo
+        if (bulletPrefab == null || firePoint == null)
+        {
+            Debug.LogError("bulletPrefab ou firePoint está NULO.");
+            return;
+        }
+
+        GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        Debug.Log("BALA INSTANCIADA COM SUCESSO");
+        if (bulletPrefab == null || firePoint == null || harpoonVFX == null)
+        {
+            Debug.LogWarning("Referência ausente em PlayerShooting!");
+            return;
+        }
+
+        // Calcula direção do mouse no plano Y
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         Plane plane = new Plane(Vector3.up, firePoint.position);
         if (plane.Raycast(ray, out float distance))
@@ -26,12 +45,22 @@ public class PlayerShooting : MonoBehaviour
             Vector3 targetPoint = ray.GetPoint(distance);
             Vector3 direction = (targetPoint - firePoint.position).normalized;
 
-            GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.LookRotation(direction));
+            // Instancia a bala
+
+            // Aplica velocidade
             Rigidbody rb = bullet.GetComponent<Rigidbody>();
             if (rb != null)
-            {
                 rb.linearVelocity = direction * bulletSpeed;
+
+            // Configura o VFX
+            Bullet bulletScript = bullet.GetComponent<Bullet>();
+            if (bulletScript != null)
+            {
+                VisualEffect vfx = Instantiate(harpoonVFX);
+                bulletScript.harpoonVFX = vfx;
+                bulletScript.firePoint = firePoint;
             }
+
             Destroy(bullet, 3f);
         }
     }

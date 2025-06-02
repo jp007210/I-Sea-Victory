@@ -1,34 +1,59 @@
 ﻿using UnityEngine;
+using UnityEngine.VFX;
 
 public class Bullet : MonoBehaviour
 {
+    public VisualEffect harpoonVFX;
+    public Transform firePoint;
     public int damage = 20;
-    public float lifetime = 3f;
 
     void Start()
     {
-        Destroy(gameObject, lifetime);
+        Physics.IgnoreCollision(GetComponent<Collider>(), GameObject.FindWithTag("Player").GetComponent<Collider>());
+        if (harpoonVFX != null && firePoint != null)
+        {
+            harpoonVFX.transform.position = firePoint.position;
+            harpoonVFX.transform.forward = firePoint.forward;
+            harpoonVFX.Play(); // ativa clarão + trilha
+        }
     }
 
     void OnTriggerEnter(Collider other)
     {
+        bool hit = false;
+
         if (other.CompareTag("Enemy"))
         {
+            VisualEffect impact = Instantiate(harpoonVFX, transform.position, Quaternion.identity);
+            impact.SendEvent("OnImpact");
+            Destroy(gameObject);
             EnemyHealth eh = other.GetComponent<EnemyHealth>();
             if (eh != null)
             {
                 eh.TakeDamage(damage);
+                hit = true;
             }
-            Destroy(gameObject);
         }
-        if (other.CompareTag("Boss")) // 👈 Tag correta!
+
+        if (other.CompareTag("Boss"))
         {
-            NavioPirataHealth bossHealth = other.GetComponent<NavioPirataHealth>();
-            if (bossHealth != null)
+            VisualEffect impact = Instantiate(harpoonVFX, transform.position, Quaternion.identity);
+            impact.SendEvent("OnImpact");
+            Destroy(gameObject);
+            NavioPirataHealth boss = other.GetComponent<NavioPirataHealth>();
+            if (boss != null)
             {
-                bossHealth.TakeDamage(damage);
+                boss.TakeDamage(damage);
+                hit = true;
             }
-            Destroy(gameObject); // destrói o projétil
         }
+
+        if (hit && harpoonVFX != null)
+        {
+            harpoonVFX.transform.position = transform.position;
+            harpoonVFX.SendEvent("OnImpact");
+        }
+
+        Destroy(gameObject);
     }
 }

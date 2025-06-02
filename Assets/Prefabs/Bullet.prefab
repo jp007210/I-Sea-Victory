@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2793894932437041784
+--- !u!1 &8006775599070976569
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,12 +8,12 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2354300673774834684}
-  - component: {fileID: 3694821921795760036}
-  - component: {fileID: 9017336787268298851}
-  - component: {fileID: 4564146054908504470}
-  - component: {fileID: 7821415410611396962}
-  - component: {fileID: 9030310127796809880}
+  - component: {fileID: 4355062162206399266}
+  - component: {fileID: 6966385657487452454}
+  - component: {fileID: 3236889066216223808}
+  - component: {fileID: 3863678293542467107}
+  - component: {fileID: 364076706659568320}
+  - component: {fileID: 3636709145570314929}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Bullet
@@ -21,36 +21,36 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2354300673774834684
+--- !u!4 &4355062162206399266
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2793894932437041784}
+  m_GameObject: {fileID: 8006775599070976569}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 2.5652256, y: -2.98, z: -10.61831}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &3694821921795760036
+--- !u!33 &6966385657487452454
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2793894932437041784}
+  m_GameObject: {fileID: 8006775599070976569}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &9017336787268298851
+--- !u!23 &3236889066216223808
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2793894932437041784}
+  m_GameObject: {fileID: 8006775599070976569}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -89,13 +89,13 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &4564146054908504470
+--- !u!135 &3863678293542467107
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2793894932437041784}
+  m_GameObject: {fileID: 8006775599070976569}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -110,13 +110,13 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &7821415410611396962
+--- !u!54 &364076706659568320
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2793894932437041784}
+  m_GameObject: {fileID: 8006775599070976569}
   serializedVersion: 4
   m_Mass: 1
   m_Drag: 0
@@ -137,17 +137,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &9030310127796809880
+--- !u!114 &3636709145570314929
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2793894932437041784}
+  m_GameObject: {fileID: 8006775599070976569}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e3f82baed9249d04abc6361857cc3fd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  harpoonVFX: {fileID: -6190671206956466056, guid: 0eca5596e9774134a871b0239dea39b8, type: 3}
+  firePoint: {fileID: 1374709317606732616, guid: c6f341d3d60a489409314179cda5ba6b, type: 3}
   damage: 20
-  lifetime: 3
