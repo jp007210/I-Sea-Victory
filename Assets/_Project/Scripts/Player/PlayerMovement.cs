@@ -20,23 +20,23 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        // Entrada do jogador
-        inputForward = Input.GetAxis("Vertical");   // W/S ou ?/?
-        inputTurn = Input.GetAxis("Horizontal");    // A/D ou ?/?
+        inputForward = Input.GetAxis("Vertical");
+        inputTurn = Input.GetAxis("Horizontal");   
+        if (PauseMenuManager.GameIsPaused)
+        {
+            return;
+        }
     }
 
     void FixedUpdate()
     {
-        // Aplicar acelera��o
         currentSpeed += inputForward * acceleration * Time.fixedDeltaTime;
-        currentSpeed = Mathf.Clamp(currentSpeed, -maxSpeed * 0.5f, maxSpeed); // r� mais lenta
+        currentSpeed = Mathf.Clamp(currentSpeed, -maxSpeed * 0.5f, maxSpeed);
 
-        // Mover o barco para frente
         Vector3 moveDirection = transform.forward * currentSpeed;
         rb.linearVelocity = new Vector3(moveDirection.x, rb.linearVelocity.y, moveDirection.z);
 
-        // Girar o barco
-        if (Mathf.Abs(currentSpeed) > 0.1f) // S� rotaciona se estiver em movimento
+        if (Mathf.Abs(currentSpeed) > 0.1f)
         {
             float turnAmount = inputTurn * turnSpeed * Time.fixedDeltaTime * Mathf.Sign(currentSpeed);
             Quaternion turnOffset = Quaternion.Euler(0, turnAmount * 100f, 0);

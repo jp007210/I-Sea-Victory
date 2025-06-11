@@ -8,7 +8,12 @@ public class PlayerShooting : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0)) // Bot�o esquerdo do mouse
+        if (PauseMenuManager.GameIsPaused)
+        {
+            return;
+        }
+
+        if (Input.GetMouseButtonDown(0))
         {
             Shoot();
         }
@@ -18,7 +23,6 @@ public class PlayerShooting : MonoBehaviour
     {
         if (bulletPrefab == null || firePoint == null) return;
 
-        // Calcular dire��o do mouse no mundo
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         Plane plane = new Plane(Vector3.up, firePoint.position);
         if (plane.Raycast(ray, out float distance))

@@ -9,9 +9,12 @@ public class EnemyHealth : MonoBehaviour
     public GameObject healItemPrefab;
     public float dropChance = 0.3f;
 
+    private DayProgressMeter dayProgressMeter;
+
     void Start()
     {
         currentHealth = maxHealth;
+        dayProgressMeter = FindObjectOfType<DayProgressMeter>();
     }
 
     public void TakeDamage(int amount)
@@ -24,8 +27,14 @@ public class EnemyHealth : MonoBehaviour
             Die();
         }
     }
+
     void Die()
     {
+        if (dayProgressMeter != null)
+        {
+            dayProgressMeter.EnemyWasDefeated();
+        }
+
         if (GameManager.Instance != null)
         {
             GameManager.Instance.AddScore(scoreValue);
@@ -33,6 +42,7 @@ public class EnemyHealth : MonoBehaviour
         TryDropHeal();
         Destroy(gameObject);
     }
+
     void TryDropHeal()
     {
         if (healItemPrefab != null && Random.value < dropChance)
