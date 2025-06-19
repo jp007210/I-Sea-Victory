@@ -8,11 +8,17 @@ public class PlayerShooting : MonoBehaviour
     public Transform firePoint;
     public VisualEffect harpoonVFX;
     public float bulletSpeed = 25f;
+
     public AudioClip shootClip;
     public AudioSource audioSource;
 
     void Update()
     {
+        if (PauseMenuManager.GameIsPaused)
+        {
+            return;
+        }
+
         if (Input.GetMouseButtonDown(0))
         {
             Shoot();
@@ -21,52 +27,45 @@ public class PlayerShooting : MonoBehaviour
 
     void Shoot()
     {
-        harpoonVFX.transform.position = firePoint.position;
-        harpoonVFX.transform.rotation = firePoint.rotation;
-        harpoonVFX.Play();
-        Debug.Log("Tentando atirar...");
-
-        if (bulletPrefab == null || firePoint == null)
+        if (bulletPrefab == null || firePoint == null || harpoonVFX == null || audioSource == null || shootClip == null)
         {
-            Debug.LogError("bulletPrefab ou firePoint está NULO.");
+            Debug.LogWarning("PlayerShooting: Algumas referências importantes estão faltando no Inspector! " +
+                             "Certifique-se de que Bullet Prefab, Fire Point, Harpoon VFX, Audio Source e Shoot Clip estão atribuídos.");
             return;
         }
+
+        VisualEffect instantiatedMuzzleVFX = Instantiate(harpoonVFX, firePoint.position, firePoint.rotation);
+        instantiatedMuzzleVFX.Play();
+        Destroy(instantiatedMuzzleVFX.gameObject, 2f);
+
+        audioSource.PlayOneShot(shootClip);
 
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-        Debug.Log("BALA INSTANCIADA COM SUCESSO");
-        if (bulletPrefab == null || firePoint == null || harpoonVFX == null)
-        {
-            Debug.LogWarning("Referência ausente em PlayerShooting!");
-            return;
-        }
 
-        // Calcula direção do mouse no plano Y
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         Plane plane = new Plane(Vector3.up, firePoint.position);
+        Vector3 direction = Vector3.forward;
         if (plane.Raycast(ray, out float distance))
         {
             Vector3 targetPoint = ray.GetPoint(distance);
-            Vector3 direction = (targetPoint - firePoint.position).normalized;
-
-            // Instancia a bala
-
-            // Aplica velocidade
-            Rigidbody rb = bullet.GetComponent<Rigidbody>();
-            if (rb != null)
-                rb.linearVelocity = direction * bulletSpeed;
-
-            // Configura o VFX
-            Bullet bulletScript = bullet.GetComponent<Bullet>();
-            if (bulletScript != null)
-            {
-                VisualEffect vfx = Instantiate(harpoonVFX);
-                bulletScript.harpoonVFX = vfx;
-                bulletScript.firePoint = firePoint;
-            }
-            if (audioSource && shootClip)
-                audioSource.PlayOneShot(shootClip);
-
-            Destroy(bullet, 3f);
+            direction = (targetPoint - firePoint.position).normalized;
+            bullet.transform.rotation = Quaternion.LookRotation(direction);
         }
+
+        Rigidbody rb = bullet.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.linearVelocity = direction * bulletSpeed;
+        }
+
+        Bullet bulletScript = bullet.GetComponent<Bullet>();
+        if (bulletScript != null)
+        {
+            VisualEffect bulletTrailVFX = Instantiate(harpoonVFX);
+            bulletScript.harpoonVFX = bulletTrailVFX;
+            bulletScript.firePoint = firePoint;
+        }
+
+        Destroy(bullet, 3f);
     }
 }
