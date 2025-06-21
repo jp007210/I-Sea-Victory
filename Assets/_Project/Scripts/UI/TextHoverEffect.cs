@@ -7,22 +7,16 @@ public class TextHoverEffect : MonoBehaviour, IPointerEnterHandler, IPointerExit
     private TMP_Text textMesh;
     public float outlineOnHover = 0.1f;
     public float underlayOnHover = 0.2f;
+
     public AudioClip hoverSound;
     public AudioClip clickSound;
-    private static AudioSource uiAudioSource;
+
+    // Não precisamos mais de uma referência para um AudioSource aqui.
 
     void Awake()
     {
+        // Apenas obtemos a referência para o texto, como antes.
         textMesh = GetComponentInChildren<TMP_Text>();
-
-        if (AudioController.Instance != null && AudioController.Instance.uiAudioSource != null)
-        {
-            uiAudioSource = AudioController.Instance.uiAudioSource;
-        }
-        else if (uiAudioSource == null)
-        {
-            uiAudioSource = FindObjectOfType<AudioSource>();
-        }
 
         if (textMesh != null)
         {
@@ -37,9 +31,12 @@ public class TextHoverEffect : MonoBehaviour, IPointerEnterHandler, IPointerExit
             textMesh.outlineWidth = outlineOnHover;
             textMesh.fontMaterial.SetFloat(ShaderUtilities.ID_UnderlayDilate, underlayOnHover);
         }
-        if (uiAudioSource != null && hoverSound != null)
+
+        // Pedimos ao AudioManager para tocar o som de hover.
+        // Ele usará o sfxSource automaticamente.
+        if (hoverSound != null && AudioManager.instance != null)
         {
-            uiAudioSource.PlayOneShot(hoverSound);
+            AudioManager.instance.PlaySFX(hoverSound);
         }
     }
 
@@ -53,15 +50,20 @@ public class TextHoverEffect : MonoBehaviour, IPointerEnterHandler, IPointerExit
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (uiAudioSource != null && clickSound != null)
+        // Pedimos ao AudioManager para tocar o som de clique.
+        // Ele usará o sfxSource automaticamente.
+        if (clickSound != null && AudioManager.instance != null)
         {
-            uiAudioSource.PlayOneShot(clickSound);
+            AudioManager.instance.PlaySFX(clickSound);
         }
     }
 
     private void RemoveOutline()
     {
-        textMesh.outlineWidth = 0;
-        textMesh.fontMaterial.SetFloat(ShaderUtilities.ID_UnderlayDilate, 0);
+        if (textMesh != null)
+        {
+            textMesh.outlineWidth = 0;
+            textMesh.fontMaterial.SetFloat(ShaderUtilities.ID_UnderlayDilate, 0);
+        }
     }
 }
