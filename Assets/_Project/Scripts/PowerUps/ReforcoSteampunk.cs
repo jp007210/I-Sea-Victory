@@ -1,0 +1,12 @@
+using UnityEngine;
+
+[CreateAssetMenu(menuName = "PowerUps/Reforço SteamPunk")]
+public class DefenseBoost : PowerUp
+{
+    public float defenseBonus = 1.2f; // 20% a mais
+
+    public override void Apply(PlayerStats playerStats)
+    {
+        playerStats.baseDamageReduction *= defenseBonus;
+    }
+}

@@ -10,7 +10,7 @@ public class EnemyMelee : MonoBehaviour
     private Transform player;
     private NavMeshAgent agent;
     private float attackTimer;
-    private PlayerHealth playerHealth;
+    private PlayerStats playerStats;
     private Rigidbody rb;
 
     void Start()
@@ -23,8 +23,8 @@ public class EnemyMelee : MonoBehaviour
         if (playerObj != null)
         {
             player = playerObj.transform;
-            playerHealth = player.GetComponent<PlayerHealth>();
-            if (playerHealth == null)
+            playerStats = player.GetComponent<PlayerStats>();
+            if (playerStats == null)
                 Debug.LogError("PlayerHealth não encontrado no Player!");
         }
         else
@@ -37,7 +37,7 @@ public class EnemyMelee : MonoBehaviour
 
     void Update()
     {
-        if (player == null || playerHealth == null) return;
+        if (player == null || playerStats == null) return;
 
         float distance = Vector3.Distance(transform.position, player.position);
 
@@ -62,9 +62,9 @@ public class EnemyMelee : MonoBehaviour
 
     void Attack()
     {
-        if (playerHealth != null)
+        if (playerStats != null)
         {
-            playerHealth.TakeDamage(damage);
+            playerStats.TakeDamage(damage);
         }
     }
 

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class HeartBeat : MonoBehaviour
 {
-    public PlayerHealth playerHealth;
+    public PlayerStats playerStats;  // Atualizado para usar PlayerStats
     public float minBPM = 40f;
     public float maxBPM = 180f;
     public float pulseScale = 1.2f;
@@ -17,7 +17,9 @@ public class HeartBeat : MonoBehaviour
 
     void Update()
     {
-        float healthPercent = playerHealth.currentHealth / (float)playerHealth.maxHealth;
+        if (playerStats == null) return;
+
+        float healthPercent = playerStats.currentHealth / (float)playerStats.baseMaxHealth;
         float bpm = Mathf.Lerp(maxBPM, minBPM, healthPercent);
         float cycle = 60f / bpm;
         timer += Time.deltaTime;

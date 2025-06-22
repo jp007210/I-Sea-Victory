@@ -30,7 +30,7 @@ public class AudioController : MonoBehaviour
             uiAudioSource = GetComponent<AudioSource>();
             if (uiAudioSource == null)
             {
-                uiAudioSource = FindObjectOfType<AudioSource>();
+                uiAudioSource = Object.FindFirstObjectByType<AudioSource>();
             }
         }
     }

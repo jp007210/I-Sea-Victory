@@ -6,7 +6,7 @@ public class PlayerShooting : MonoBehaviour
 
     void Start()
     {
-        weaponManager = FindObjectOfType<WeaponManager>();
+        weaponManager = Object.FindFirstObjectByType<WeaponManager>();
         if (weaponManager == null)
         {
             Debug.LogError("PlayerShooting: WeaponManager não encontrado na cena!");

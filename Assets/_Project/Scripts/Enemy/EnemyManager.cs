@@ -5,9 +5,11 @@ public class EnemyManager : MonoBehaviour
 {
     public static EnemyManager Instance;
 
-    public int progressionStep = 0; // 0 = inimigo tipo 0, 1 = boss tipo 0, 2 = inimigo tipo 1, etc
+    public int progressionStep = 0;
     public int enemiesDefeated = 0;
     public int enemiesToDefeat = 5;
+
+    private bool awaitingPowerUpChoice = false;
 
     void Awake()
     {
@@ -27,17 +29,24 @@ public class EnemyManager : MonoBehaviour
         progressionStep = 0;
         enemiesDefeated = 0;
         enemiesToDefeat = 5;
+        awaitingPowerUpChoice = false;
         SceneManager.LoadScene("EnemyStage");
     }
 
     public void EnemyDefeated()
     {
         enemiesDefeated++;
-        if (enemiesDefeated >= enemiesToDefeat)
+
+        if (enemiesDefeated >= enemiesToDefeat && !awaitingPowerUpChoice)
         {
+            awaitingPowerUpChoice = true; // trava a progressão até o player escolher
             enemiesDefeated = 0;
-            progressionStep++; // vai para fase de boss
-            SceneManager.LoadScene("BossStage");
+
+            PowerUpManager.Instance.ShowPowerUpChoices(() =>
+            {
+                awaitingPowerUpChoice = false;
+                progressionStep++;
+            });
         }
     }
 
@@ -45,20 +54,16 @@ public class EnemyManager : MonoBehaviour
     {
         progressionStep++;
         enemiesToDefeat += 2;
+
         if (WeaponManager.Instance != null)
         {
             WeaponManager.Instance.UnlockNextWeapon();
         }
+
         SceneManager.LoadScene("EnemyStage");
     }
 
-    public bool IsEnemyStage()
-    {
-        return progressionStep % 2 == 0;
-    }
+    public bool IsEnemyStage() => progressionStep % 2 == 0;
 
-    public int GetCurrentIndex()
-    {
-        return progressionStep / 2;
-    }
+    public int GetCurrentIndex() => progressionStep / 2;
 }
