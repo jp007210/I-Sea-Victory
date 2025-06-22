@@ -188,9 +188,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6c0bde16f19ba74591557f746af9fb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  centerPoint: {fileID: 0}
+  centerPoint: {fileID: 8545775071796776431, guid: f4b0ae21ae7c1a14492768ac2dc755dc, type: 3}
   rotationRadius: 30
   rotationSpeed: 15
+  attackSystem: {fileID: 5520467246313532646}
 --- !u!114 &-1290527400210949667
 MonoBehaviour:
   m_ObjectHideFlags: 0

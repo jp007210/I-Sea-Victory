@@ -64,8 +64,6 @@ public class EnemyRanged : MonoBehaviour
         Rigidbody rb = bullet.GetComponent<Rigidbody>();
         if (rb != null)
             rb.linearVelocity = direction * bulletSpeed;
-
-        Debug.Log($"{name} atirou!");
     }
 
     void RotateTowards(Vector3 target)

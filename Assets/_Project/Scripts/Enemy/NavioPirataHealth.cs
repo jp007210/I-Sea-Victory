@@ -3,12 +3,12 @@ using UnityEngine;
 public class NavioPirataHealth : MonoBehaviour
 {
     public int maxHealth = 200;
-    private int currentHealth;
+    private float currentHealth;
 
     public NavioPirataAttack attackSystem;
     public int GetCurrentHealth()
     {
-        return currentHealth;
+        return (int)currentHealth;
     }
 
     void Start()
@@ -16,7 +16,7 @@ public class NavioPirataHealth : MonoBehaviour
         currentHealth = maxHealth;
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         if (attackSystem != null && !attackSystem.isVulnerable)
             return;
@@ -33,5 +33,6 @@ public class NavioPirataHealth : MonoBehaviour
     {
         Destroy(gameObject);
         Debug.Log("MiniBoss derrotado!");
+        EnemyManager.Instance.BossDefeated();
     }
 }

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3236889066216223808}
   - component: {fileID: 3863678293542467107}
   - component: {fileID: 364076706659568320}
-  - component: {fileID: 3636709145570314929}
+  - component: {fileID: -7727864545171999297}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Bullet
@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 8006775599070976569}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.5652256, y: -2.98, z: -10.61831}
+  m_LocalPosition: {x: 2.5652256, y: 1.4, z: -10.61831}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -138,7 +138,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &3636709145570314929
+--- !u!114 &-7727864545171999297
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -147,14 +147,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 8006775599070976569}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3f82baed9249d04abc6361857cc3fd0, type: 3}
+  m_Script: {fileID: 11500000, guid: b797d738a8dff2a4bb3dd14558dbcfa9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  harpoonVFX: {fileID: -6190671206956466056, guid: 0eca5596e9774134a871b0239dea39b8, type: 3}
-  firePoint: {fileID: 1374709317606732616, guid: c6f341d3d60a489409314179cda5ba6b, type: 3}
-  damage: 20
-  impactClip: {fileID: 8300000, guid: 7be92cb4d9211e14a8827353df42d4b1, type: 3}
-  audioSource: {fileID: 2860242281131005701}
 --- !u!1 &8023123657638166378
 GameObject:
   m_ObjectHideFlags: 0

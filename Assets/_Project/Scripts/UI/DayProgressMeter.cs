@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class DayProgressMeter : MonoBehaviour
 {
@@ -9,7 +10,6 @@ public class DayProgressMeter : MonoBehaviour
     [Header("Configurações do Medidor")]
     public Image dayImage;
     public int enemiesToWin = 10;
-    public GameObject winScreen;
 
     [Header("Efeitos Visuais")]
     public Image glowImage;
@@ -40,8 +40,6 @@ public class DayProgressMeter : MonoBehaviour
         if (glowImage != null)
             glowImage.color = new Color(1, 1, 1, 0);
 
-        if (winScreen != null)
-            winScreen.SetActive(false);
     }
 
     public void EnemyWasDefeated()
@@ -77,10 +75,6 @@ public class DayProgressMeter : MonoBehaviour
 void WinGame()
     {
         dayImage.fillAmount = 0f;
-        if (winScreen != null)
-        {
-            winScreen.SetActive(true);
-        }
     }
 
     void TriggerGlow()

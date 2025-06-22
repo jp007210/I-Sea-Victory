@@ -4,7 +4,7 @@ public class EnemyHealth : MonoBehaviour
 {
     [Header("Atributos do Inimigo")]
     public int maxHealth = 50;
-    public int currentHealth;
+    public float currentHealth;
 
     [Header("Recompensas")]
     public int scoreValue = 1;
@@ -17,7 +17,7 @@ public class EnemyHealth : MonoBehaviour
         currentHealth = maxHealth;
     }
 
-    public void TakeDamage(int amount)
+    public void TakeDamage(float amount)
     {
         currentHealth -= amount;
 
@@ -40,6 +40,8 @@ public class EnemyHealth : MonoBehaviour
         {
             GameManager.Instance.AddScore(scoreValue);
         }
+
+        EnemyManager.Instance.EnemyDefeated();
 
         TryDropHeal();
 

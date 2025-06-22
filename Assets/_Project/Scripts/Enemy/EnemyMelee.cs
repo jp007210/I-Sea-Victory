@@ -65,7 +65,6 @@ public class EnemyMelee : MonoBehaviour
         if (playerHealth != null)
         {
             playerHealth.TakeDamage(damage);
-            Debug.Log($"{name} atacou o player causando {damage} de dano!");
         }
     }
 

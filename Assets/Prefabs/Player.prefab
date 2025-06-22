@@ -143,9 +143,10 @@ GameObject:
   - component: {fileID: 5503106646416080663}
   - component: {fileID: 2762485191187896582}
   - component: {fileID: 2116612487360996204}
-  - component: {fileID: 6341446753201928726}
   - component: {fileID: 6784201263669612081}
   - component: {fileID: 4611802073945293743}
+  - component: {fileID: 8506161566533700122}
+  - component: {fileID: -4237479728340830264}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -289,24 +290,6 @@ MonoBehaviour:
   maxSpeed: 5
   turnSpeed: 1.5
   drag: 0.1
---- !u!114 &6341446753201928726
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5052220920808817698}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58ce5734ab0ab2142ae4fa2f7437b3d0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 8006775599070976569, guid: 354ad2a4ca5c8b84c955f880e9ca3dc8, type: 3}
-  firePoint: {fileID: 6412143775608743650}
-  harpoonVFX: {fileID: -6190671206956466056, guid: 0eca5596e9774134a871b0239dea39b8, type: 3}
-  bulletSpeed: 15
-  shootClip: {fileID: 8300000, guid: 7555a262b2a11af499205ed093f5414a, type: 3}
-  audioSource: {fileID: 7233943312698570475}
 --- !u!114 &6784201263669612081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -320,8 +303,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
-  currentHealth: 0
-  loseScreen: {fileID: 0}
+  currentHealth: 100
+  healthBarSlider: {fileID: 0}
+  damageGlowImage: {fileID: 0}
+  damageGlowColor: {r: 0.5, g: 0, b: 0, a: 0.7}
+  glowDuration: 0.4
+  healthAnimationDuration: 0.3
 --- !u!114 &4611802073945293743
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -332,6 +319,34 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0360e267120037f4e80a4152694770f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8506161566533700122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5052220920808817698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 425f9565b2483274aa91889ef9cdbd6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponHolder: {fileID: 6412143775608743650}
+  allWeapons:
+  - {fileID: -1318949398841098620, guid: 6c7f03f9ff056834397eb48bda0f56e0, type: 3}
+  - {fileID: 934284608984861018, guid: 117e4dee5a8618f459c542e9316edf82, type: 3}
+--- !u!114 &-4237479728340830264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5052220920808817698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58ce5734ab0ab2142ae4fa2f7437b3d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &5471715343086540202
