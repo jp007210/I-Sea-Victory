@@ -205,7 +205,7 @@ public class MenuController : MonoBehaviour
     {
         ShowLoadingScreenWithFade();
         yield return new WaitForSeconds(fadeDuration);
-        SceneManager.LoadScene(sceneName);
+        SceneManager.LoadScene("EnemyStage");
     }
 
     public void StartGameButton()

@@ -45,6 +45,10 @@ public class EnemyManager : MonoBehaviour
     {
         progressionStep++;
         enemiesToDefeat += 2;
+        if (WeaponManager.Instance != null)
+        {
+            WeaponManager.Instance.UnlockNextWeapon();
+        }
         SceneManager.LoadScene("EnemyStage");
     }
 

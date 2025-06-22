@@ -7,31 +7,18 @@ public class WeaponHUD : MonoBehaviour
     public TextMeshProUGUI weaponNameText;
     public Slider cooldownSlider;
 
-    private Weapon currentWeapon;
-
-    void Update()
+    public void SetWeaponName(string name)
     {
-        if (currentWeapon != null)
-        {
-            cooldownSlider.maxValue = currentWeapon.cooldown;
-            cooldownSlider.value = currentWeapon.GetCooldownTimer();
-        }
+        if (weaponNameText != null)
+            weaponNameText.text = name;
     }
 
-    public void UpdateWeaponInfo(Weapon weapon)
+    public void UpdateCooldown(float current, float max)
     {
-        currentWeapon = weapon;
-
-        if (weapon != null)
+        if (cooldownSlider != null)
         {
-            weaponNameText.text = weapon.name;
-            cooldownSlider.maxValue = weapon.cooldown;
-            cooldownSlider.value = weapon.GetCooldownTimer();
-        }
-        else
-        {
-            weaponNameText.text = "Sem arma";
-            cooldownSlider.value = 0;
+            cooldownSlider.maxValue = max;
+            cooldownSlider.value = current;
         }
     }
 }

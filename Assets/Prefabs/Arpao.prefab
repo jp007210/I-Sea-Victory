@@ -10,13 +10,13 @@ GameObject:
   m_Component:
   - component: {fileID: 748563221946748813}
   - component: {fileID: -1318949398841098620}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Arpao
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &748563221946748813
 Transform:
   m_ObjectHideFlags: 0
@@ -45,6 +45,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 8006775599070976569, guid: 354ad2a4ca5c8b84c955f880e9ca3dc8, type: 3}
-  firePoint: {fileID: 1374709317606732616, guid: c6f341d3d60a489409314179cda5ba6b, type: 3}
   projectileSpeed: 25
-  cooldown: 1
+  damage: 2000
+  cooldown: 0.1
+  impactVFX: {fileID: 0}
+  impactClip: {fileID: 0}
+  volume: 1
+  hitLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  projectileLifetime: 5

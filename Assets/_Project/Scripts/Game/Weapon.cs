@@ -21,6 +21,9 @@ public abstract class Weapon : MonoBehaviour
     public float volume = 1f;
     public LayerMask hitLayers = ~0; // padrão: colide com tudo
 
+    [Header("Projétil")]
+    public float projectileLifetime = 5f;
+
     public struct ShotData
     {
         public Vector3 position;

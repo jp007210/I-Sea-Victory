@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 969516777857734107}
   - component: {fileID: 934284608984861018}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Canhao
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,8 +45,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 6782551153348709100, guid: 2e98690734be54246b71c7b84e64748b, type: 3}
-  firePoint: {fileID: 1374709317606732616, guid: c6f341d3d60a489409314179cda5ba6b, type: 3}
-  projectileSpeed: 20
-  cooldown: 1
+  projectileSpeed: 10
+  damage: 20
+  cooldown: 2
+  impactVFX: {fileID: 0}
+  impactClip: {fileID: 0}
+  volume: 1
+  hitLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  projectileLifetime: 10
   cannonCountPerSide: 3
   spacing: 1.5

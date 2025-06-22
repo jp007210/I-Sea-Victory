@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3863678293542467107}
   - component: {fileID: 364076706659568320}
   - component: {fileID: -7727864545171999297}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bullet
   m_TagString: Bullet
   m_Icon: {fileID: 0}
@@ -160,7 +160,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2139190110097052416}
   - component: {fileID: 2860242281131005701}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AudioBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
