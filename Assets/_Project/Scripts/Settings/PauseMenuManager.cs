@@ -5,19 +5,21 @@ using UnityEngine.EventSystems;
 public class PauseMenuManager : MonoBehaviour
 {
     public static bool GameIsPaused = false;
+
+    [Header("Panel References")]
     public GameObject pauseMenuUI;
-    public RectTransform contentPanel;
+    public GameObject optionsPanelUI;
+
 
     void Update()
     {
-        if (GameOverScreen.Instance != null && GameOverScreen.Instance.IsGameOver)
-        {
-            return;
-        }
-
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (GameIsPaused)
+            if (optionsPanelUI.activeSelf)
+            {
+                CloseOptions();
+            }
+            else if (GameIsPaused)
             {
                 Resume();
             }
@@ -27,14 +29,11 @@ public class PauseMenuManager : MonoBehaviour
             }
         }
 
-        if (GameIsPaused)
+        if (GameIsPaused && Input.GetMouseButtonDown(0))
         {
-            if (Input.GetMouseButtonDown(0))
+            if (!EventSystem.current.IsPointerOverGameObject())
             {
-                if (!RectTransformUtility.RectangleContainsScreenPoint(contentPanel, Input.mousePosition))
-                {
-                    Resume();
-                }
+                Resume();
             }
         }
     }
@@ -42,6 +41,7 @@ public class PauseMenuManager : MonoBehaviour
     public void Resume()
     {
         pauseMenuUI.SetActive(false);
+        optionsPanelUI.SetActive(false);
         Time.timeScale = 1f;
         GameIsPaused = false;
     }
@@ -51,5 +51,24 @@ public class PauseMenuManager : MonoBehaviour
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         GameIsPaused = true;
+    }
+
+    public void OpenOptions()
+    {
+        pauseMenuUI.SetActive(false);
+        optionsPanelUI.SetActive(true);
+    }
+
+    public void CloseOptions()
+    {
+        optionsPanelUI.SetActive(false);
+        pauseMenuUI.SetActive(true);
+    }
+
+    public void ExitToMainMenu()
+    {
+        Time.timeScale = 1f;
+        GameIsPaused = false;
+        SceneManager.LoadScene("MainMenu");
     }
 }
