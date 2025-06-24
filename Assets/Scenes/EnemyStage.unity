@@ -532,44 +532,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 401236042}
   m_CullTransparentMesh: 1
---- !u!1 &406540546 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5052220920808817698, guid: da240bd0036acf74d83b5d97def3e8d0, type: 3}
+--- !u!114 &406540555 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6167235193017014422, guid: da240bd0036acf74d83b5d97def3e8d0, type: 3}
   m_PrefabInstance: {fileID: 3048859490899270057}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &406540555
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 406540546}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4d4fe6662ac40f44581972f5fe3eb950, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseMaxHealth: 100
-  currentHealth: 0
-  healthBarSlider: {fileID: 1176568000}
-  damageGlowImage: {fileID: 1176568001}
-  damageGlowColor: {r: 0.5, g: 0, b: 0, a: 0.7}
-  glowDuration: 0.4
-  healthAnimationDuration: 0.3
-  baseDamageMultiplier: 1
-  baseDamageReduction: 1
-  baseHealingPerSecond: 0
-  baseMoveSpeed: 5
-  baseCooldownMultiplier: 1
-  projectileSizeMultiplier: 1
-  extraProjectiles: 0
-  damageMultiplier: 1
-  damageReduction: 1
-  healingPerSecond: 0
-  moveSpeed: 5
-  cooldownMultiplier: 1
-  hasShield: 0
-  shieldCooldown: 5
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -754,7 +727,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1461089577}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PowerUpManager, Assembly-CSharp
         m_MethodName: SelectPowerUp
         m_Mode: 3
@@ -1041,6 +1014,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2003060202462643786, guid: b0a26ca38ef63d14cb761bf3c496f653, type: 3}
+      propertyPath: playerStats
+      value: 
+      objectReference: {fileID: 406540555}
+    - target: {fileID: 2003060202462643786, guid: b0a26ca38ef63d14cb761bf3c496f653, type: 3}
       propertyPath: playerHealth
       value: 
       objectReference: {fileID: 0}
@@ -1052,6 +1029,10 @@ PrefabInstance:
       propertyPath: enemiesToWin
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 6046688216970889618, guid: b0a26ca38ef63d14cb761bf3c496f653, type: 3}
+      propertyPath: playerStats
+      value: 
+      objectReference: {fileID: 406540555}
     - target: {fileID: 6046688216970889618, guid: b0a26ca38ef63d14cb761bf3c496f653, type: 3}
       propertyPath: playerHealth
       value: 
@@ -1310,7 +1291,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1461089577}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PowerUpManager, Assembly-CSharp
         m_MethodName: SelectPowerUp
         m_Mode: 3
@@ -1409,7 +1390,6 @@ GameObject:
   - component: {fileID: 1461089572}
   - component: {fileID: 1461089575}
   - component: {fileID: 1461089576}
-  - component: {fileID: 1461089577}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1576,33 +1556,6 @@ MonoBehaviour:
   sfxVolume: 1
   musicVolume: 1
   uiAudioSource: {fileID: 1752374137}
---- !u!114 &1461089577
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1461089571}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee7a99ad1e3324b40a87a0eaafae19de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  allPowerUps:
-  - {fileID: 11400000, guid: 8a23777cb41670d44986352c490a7fad, type: 2}
-  - {fileID: 11400000, guid: c4c39067b1ef75d438e33c012f75db5d, type: 2}
-  - {fileID: 11400000, guid: cdd7f871febc7d246b7c7c7af9b36e75, type: 2}
-  - {fileID: 11400000, guid: e4a95a98f6fa985479e167c8ea0fd4b0, type: 2}
-  - {fileID: 11400000, guid: 75c4387995056a946b8aff9fb1dca3e4, type: 2}
-  - {fileID: 11400000, guid: b38143b2c1055054a906229fc431d96c, type: 2}
-  - {fileID: 11400000, guid: aa8c4ce7c31b6ed4283b5a7b5cf131ab, type: 2}
-  - {fileID: 11400000, guid: 95cd27fa0b66066428c32b0c064b007d, type: 2}
-  - {fileID: 11400000, guid: 4b23f2a209333634e92eeea61f6c896d, type: 2}
-  panelUI: {fileID: 1812085494}
-  optionButtons:
-  - {fileID: 1289684953}
-  - {fileID: 1649465528}
-  - {fileID: 432559545}
 --- !u!114 &1558167064 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7716195791112777433, guid: b0a26ca38ef63d14cb761bf3c496f653, type: 3}
@@ -1735,7 +1688,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1461089577}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PowerUpManager, Assembly-CSharp
         m_MethodName: SelectPowerUp
         m_Mode: 3
@@ -1747,11 +1700,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!4 &1657332918 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6412143775608743650, guid: da240bd0036acf74d83b5d97def3e8d0, type: 3}
-  m_PrefabInstance: {fileID: 3048859490899270057}
-  m_PrefabAsset: {fileID: 0}
 --- !u!82 &1752374137 stripped
 AudioSource:
   m_CorrespondingSourceObject: {fileID: 7233943312698570475, guid: da240bd0036acf74d83b5d97def3e8d0, type: 3}
@@ -1903,74 +1851,38 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 6412143775608743650, guid: da240bd0036acf74d83b5d97def3e8d0, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.23
-      objectReference: {fileID: 0}
-    - target: {fileID: 6412143775608743650, guid: da240bd0036acf74d83b5d97def3e8d0, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6784201263669612081, guid: da240bd0036acf74d83b5d97def3e8d0, type: 3}
+    - target: {fileID: 5881317094849693947, guid: da240bd0036acf74d83b5d97def3e8d0, type: 3}
+      propertyPath: panelUI
+      value: 
+      objectReference: {fileID: 1812085494}
+    - target: {fileID: 5881317094849693947, guid: da240bd0036acf74d83b5d97def3e8d0, type: 3}
+      propertyPath: 'optionButtons.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1289684953}
+    - target: {fileID: 5881317094849693947, guid: da240bd0036acf74d83b5d97def3e8d0, type: 3}
+      propertyPath: 'optionButtons.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1649465528}
+    - target: {fileID: 5881317094849693947, guid: da240bd0036acf74d83b5d97def3e8d0, type: 3}
+      propertyPath: 'optionButtons.Array.data[2]'
+      value: 
+      objectReference: {fileID: 432559545}
+    - target: {fileID: 6167235193017014422, guid: da240bd0036acf74d83b5d97def3e8d0, type: 3}
       propertyPath: damageGlowImage
       value: 
       objectReference: {fileID: 1176568001}
-    - target: {fileID: 6784201263669612081, guid: da240bd0036acf74d83b5d97def3e8d0, type: 3}
+    - target: {fileID: 6167235193017014422, guid: da240bd0036acf74d83b5d97def3e8d0, type: 3}
       propertyPath: healthBarSlider
       value: 
       objectReference: {fileID: 1176568000}
     - target: {fileID: 8506161566533700122, guid: da240bd0036acf74d83b5d97def3e8d0, type: 3}
-      propertyPath: firePoint
-      value: 
-      objectReference: {fileID: 1657332918}
-    - target: {fileID: 8506161566533700122, guid: da240bd0036acf74d83b5d97def3e8d0, type: 3}
       propertyPath: weaponHUD
       value: 
       objectReference: {fileID: 1241640424}
-    - target: {fileID: 8506161566533700122, guid: da240bd0036acf74d83b5d97def3e8d0, type: 3}
-      propertyPath: weaponHolder
-      value: 
-      objectReference: {fileID: 1657332918}
-    - target: {fileID: 8506161566533700122, guid: da240bd0036acf74d83b5d97def3e8d0, type: 3}
-      propertyPath: weapons.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8506161566533700122, guid: da240bd0036acf74d83b5d97def3e8d0, type: 3}
-      propertyPath: allWeapons.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8506161566533700122, guid: da240bd0036acf74d83b5d97def3e8d0, type: 3}
-      propertyPath: 'weapons.Array.data[0]'
-      value: 
-      objectReference: {fileID: -1318949398841098620, guid: 6c7f03f9ff056834397eb48bda0f56e0, type: 3}
-    - target: {fileID: 8506161566533700122, guid: da240bd0036acf74d83b5d97def3e8d0, type: 3}
-      propertyPath: 'weapons.Array.data[1]'
-      value: 
-      objectReference: {fileID: 934284608984861018, guid: 117e4dee5a8618f459c542e9316edf82, type: 3}
-    - target: {fileID: 8506161566533700122, guid: da240bd0036acf74d83b5d97def3e8d0, type: 3}
-      propertyPath: 'allWeapons.Array.data[0]'
-      value: 
-      objectReference: {fileID: -1318949398841098620, guid: 6c7f03f9ff056834397eb48bda0f56e0, type: 3}
-    - target: {fileID: 8506161566533700122, guid: da240bd0036acf74d83b5d97def3e8d0, type: 3}
-      propertyPath: 'allWeapons.Array.data[1]'
-      value: 
-      objectReference: {fileID: 934284608984861018, guid: 117e4dee5a8618f459c542e9316edf82, type: 3}
-    - target: {fileID: 8506161566533700122, guid: da240bd0036acf74d83b5d97def3e8d0, type: 3}
-      propertyPath: 'allWeapons.Array.data[2]'
-      value: 
-      objectReference: {fileID: 7727621712808996659, guid: 7c5dd46033050f740ae688658bc8b772, type: 3}
-    - target: {fileID: 8506161566533700122, guid: da240bd0036acf74d83b5d97def3e8d0, type: 3}
-      propertyPath: 'allWeapons.Array.data[3]'
-      value: 
-      objectReference: {fileID: 7727621712808996659, guid: 7c5dd46033050f740ae688658bc8b772, type: 3}
-    m_RemovedComponents:
-    - {fileID: 6784201263669612081, guid: da240bd0036acf74d83b5d97def3e8d0, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5052220920808817698, guid: da240bd0036acf74d83b5d97def3e8d0, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 406540555}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: da240bd0036acf74d83b5d97def3e8d0, type: 3}
 --- !u!1001 &6763874533788675758
 PrefabInstance:
