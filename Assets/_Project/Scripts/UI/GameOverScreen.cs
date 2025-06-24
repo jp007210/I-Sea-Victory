@@ -54,6 +54,6 @@ public class GameOverScreen : MonoBehaviour
     {
         Time.timeScale = 1f;
         isGameOver = false;
-        Debug.Log("Voltar ao Menu Principal (placeholder para SceneManager.LoadScene)");
+        SceneManager.LoadScene("MainMenu");
     }
 }
