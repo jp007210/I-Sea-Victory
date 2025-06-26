@@ -16,7 +16,7 @@ public class PlayerShooting : MonoBehaviour
 
     void Update()
     {
-        if (PauseMenuManager.GameIsPaused)
+        if (PauseManager.GameIsPaused)
             return;
     }
 }

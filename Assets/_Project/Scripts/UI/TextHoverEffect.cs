@@ -11,11 +11,8 @@ public class TextHoverEffect : MonoBehaviour, IPointerEnterHandler, IPointerExit
     public AudioClip hoverSound;
     public AudioClip clickSound;
 
-    // Não precisamos mais de uma referência para um AudioSource aqui.
-
     void Awake()
     {
-        // Apenas obtemos a referência para o texto, como antes.
         textMesh = GetComponentInChildren<TMP_Text>();
 
         if (textMesh != null)
@@ -32,11 +29,9 @@ public class TextHoverEffect : MonoBehaviour, IPointerEnterHandler, IPointerExit
             textMesh.fontMaterial.SetFloat(ShaderUtilities.ID_UnderlayDilate, underlayOnHover);
         }
 
-        // Pedimos ao AudioManager para tocar o som de hover.
-        // Ele usará o sfxSource automaticamente.
-        if (hoverSound != null && AudioManager.instance != null)
+        if (hoverSound != null && AudioManager.Instance != null)
         {
-            AudioManager.instance.PlaySFX(hoverSound);
+            AudioManager.Instance.PlaySFX(hoverSound);
         }
     }
 
@@ -50,11 +45,9 @@ public class TextHoverEffect : MonoBehaviour, IPointerEnterHandler, IPointerExit
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        // Pedimos ao AudioManager para tocar o som de clique.
-        // Ele usará o sfxSource automaticamente.
-        if (clickSound != null && AudioManager.instance != null)
+        if (clickSound != null && AudioManager.Instance != null)
         {
-            AudioManager.instance.PlaySFX(clickSound);
+            AudioManager.Instance.PlaySFX(clickSound);
         }
     }
 

@@ -5,41 +5,45 @@ using System.Collections;
 
 public class AudioManager : MonoBehaviour
 {
-    public static AudioManager instance;
+    public static AudioManager Instance;
 
     [Header("Audio Mixer")]
-    [Tooltip("Arraste seu Audio Mixer principal para este campo.")]
     public AudioMixer masterMixer;
 
     [Header("Audio Sources")]
-    [Tooltip("O AudioSource para a m�sica de fundo.")]
     public AudioSource musicSource;
-    [Tooltip("O AudioSource para efeitos sonoros e som ambiente.")]
     public AudioSource sfxSource;
+    public AudioSource uiAudioSource;
 
-    [Header("Audio Clips & Startup Settings")]
-    [Tooltip("O clipe de som das ondas que toca no menu.")]
+    [Header("Menu Audio Clips")]
     public AudioClip waveIntroSound;
-    [Tooltip("O clipe da m�sica principal do menu.")]
     public AudioClip menuMusic;
-
-    [Tooltip("Tempo em segundos para esperar antes de a m�sica principal come�ar.")]
     public float musicStartDelay = 5.0f;
 
+    [Header("UI Sound Effects")]
+    public AudioClip buttonClickSound;
+    public AudioClip buttonHoverSound;
+    public AudioClip panelOpenSound;
+    public AudioClip panelCloseSound;
+
     [Header("Scene Management")]
-    [Tooltip("Digite o nome exato da sua cena de MENU PRINCIPAL.")]
     public string menuSceneName = "MainMenu";
 
+    // Chaves para PlayerPrefs
     private const string MasterVolumeKey = "MasterVolume";
     private const string MusicVolumeKey = "MusicVolume";
     private const string SFXVolumeKey = "SFXVolume";
 
+    // Volume padrão
+    private const float DEFAULT_VOLUME = 0.8f;
+
     void Awake()
     {
-        if (instance == null)
+        if (Instance == null)
         {
-            instance = this;
+            Instance = this;
             DontDestroyOnLoad(gameObject);
+            InitializeAudio();
         }
         else
         {
@@ -57,19 +61,66 @@ public class AudioManager : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
-    private void Start()
+    private void InitializeAudio()
     {
+        // Configurar AudioSources se não estiverem configurados
+        if (musicSource == null)
+        {
+            GameObject musicGO = new GameObject("MusicSource");
+            musicGO.transform.SetParent(transform);
+            musicSource = musicGO.AddComponent<AudioSource>();
+            musicSource.playOnAwake = false;
+            musicSource.loop = true;
+        }
+
+        if (sfxSource == null)
+        {
+            GameObject sfxGO = new GameObject("SFXSource");
+            sfxGO.transform.SetParent(transform);
+            sfxSource = sfxGO.AddComponent<AudioSource>();
+            sfxSource.playOnAwake = false;
+        }
+
+        if (uiAudioSource == null)
+        {
+            GameObject uiGO = new GameObject("UIAudioSource");
+            uiGO.transform.SetParent(transform);
+            uiAudioSource = uiGO.AddComponent<AudioSource>();
+            uiAudioSource.playOnAwake = false;
+        }
+
         LoadVolumeSettings();
+    }
+
+    void Start()
+    {
         if (SceneManager.GetActiveScene().name == menuSceneName)
         {
-            StartCoroutine(PlayAudioSequence());
+            StartCoroutine(PlayMenuAudioSequence());
         }
     }
 
-    private IEnumerator PlayAudioSequence()
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        if (scene.name == menuSceneName)
+        {
+            if (!musicSource.isPlaying)
+            {
+                StartCoroutine(PlayMenuAudioSequence());
+            }
+        }
+        else
+        {
+            StopMenuAudio();
+        }
+    }
+
+    private IEnumerator PlayMenuAudioSequence()
+    {
+        // Parar música atual
         musicSource.Stop();
 
+        // Tocar som das ondas
         if (sfxSource != null && waveIntroSound != null)
         {
             sfxSource.clip = waveIntroSound;
@@ -77,8 +128,10 @@ public class AudioManager : MonoBehaviour
             sfxSource.Play();
         }
 
+        // Esperar antes de começar a música
         yield return new WaitForSeconds(musicStartDelay);
 
+        // Tocar música principal
         if (musicSource != null && menuMusic != null)
         {
             musicSource.clip = menuMusic;
@@ -87,6 +140,91 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    private void StopMenuAudio()
+    {
+        if (musicSource != null && musicSource.isPlaying)
+        {
+            musicSource.Stop();
+        }
+
+        if (sfxSource != null && sfxSource.isPlaying && sfxSource.clip == waveIntroSound)
+        {
+            sfxSource.Stop();
+        }
+    }
+
+    #region Volume Control
+    public void SetMasterVolume(float value)
+    {
+        // Garantir que o valor está entre 0.0001 e 1
+        value = Mathf.Clamp(value, 0.0001f, 1f);
+
+        if (masterMixer != null)
+        {
+            float dbValue = Mathf.Log10(value) * 20;
+            masterMixer.SetFloat(MasterVolumeKey, dbValue);
+        }
+
+        PlayerPrefs.SetFloat(MasterVolumeKey, value);
+        PlayerPrefs.Save();
+    }
+
+    public void SetMusicVolume(float value)
+    {
+        value = Mathf.Clamp(value, 0.0001f, 1f);
+
+        if (masterMixer != null)
+        {
+            float dbValue = Mathf.Log10(value) * 20;
+            masterMixer.SetFloat(MusicVolumeKey, dbValue);
+        }
+
+        PlayerPrefs.SetFloat(MusicVolumeKey, value);
+        PlayerPrefs.Save();
+    }
+
+    public void SetSFXVolume(float value)
+    {
+        value = Mathf.Clamp(value, 0.0001f, 1f);
+
+        if (masterMixer != null)
+        {
+            float dbValue = Mathf.Log10(value) * 20;
+            masterMixer.SetFloat(SFXVolumeKey, dbValue);
+        }
+
+        PlayerPrefs.SetFloat(SFXVolumeKey, value);
+        PlayerPrefs.Save();
+    }
+
+    public float GetMasterVolume()
+    {
+        return PlayerPrefs.GetFloat(MasterVolumeKey, DEFAULT_VOLUME);
+    }
+
+    public float GetMusicVolume()
+    {
+        return PlayerPrefs.GetFloat(MusicVolumeKey, DEFAULT_VOLUME);
+    }
+
+    public float GetSFXVolume()
+    {
+        return PlayerPrefs.GetFloat(SFXVolumeKey, DEFAULT_VOLUME);
+    }
+
+    private void LoadVolumeSettings()
+    {
+        float masterValue = GetMasterVolume();
+        float musicValue = GetMusicVolume();
+        float sfxValue = GetSFXVolume();
+
+        SetMasterVolume(masterValue);
+        SetMusicVolume(musicValue);
+        SetSFXVolume(sfxValue);
+    }
+    #endregion
+
+    #region Sound Effects
     public void PlaySFX(AudioClip clip)
     {
         if (sfxSource != null && clip != null)
@@ -95,59 +233,113 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    public void PlaySFX(AudioClip clip, float volume)
     {
-        if (scene.name != menuSceneName)
+        if (sfxSource != null && clip != null)
         {
-            StopMenuAudio();
-        }
-        else
-        {
-            if (!musicSource.isPlaying)
-            {
-                StartCoroutine(PlayAudioSequence());
-            }
+            sfxSource.PlayOneShot(clip, volume);
         }
     }
 
-    private void StopMenuAudio()
+    public void PlayUISound(AudioClip clip)
     {
-        if (musicSource != null && musicSource.isPlaying) musicSource.Stop();
-        if (sfxSource != null && sfxSource.isPlaying && sfxSource.clip == waveIntroSound)
+        if (uiAudioSource != null && clip != null)
         {
-            sfxSource.Stop();
+            uiAudioSource.PlayOneShot(clip);
         }
     }
 
-    #region Volume Control
-
-    public void SetMasterVolume(float value)
+    // Métodos de conveniência para sons de UI
+    public void PlayButtonClick()
     {
-        masterMixer.SetFloat(MasterVolumeKey, Mathf.Log10(value) * 20);
-        PlayerPrefs.SetFloat(MasterVolumeKey, value);
+        PlayUISound(buttonClickSound);
     }
 
-    public void SetMusicVolume(float value)
+    public void PlayButtonHover()
     {
-        masterMixer.SetFloat(MusicVolumeKey, Mathf.Log10(value) * 20);
-        PlayerPrefs.SetFloat(MusicVolumeKey, value);
+        PlayUISound(buttonHoverSound);
     }
 
-    public void SetSFXVolume(float value)
+    public void PlayPanelOpen()
     {
-        masterMixer.SetFloat(SFXVolumeKey, Mathf.Log10(value) * 20);
-        PlayerPrefs.SetFloat(SFXVolumeKey, value);
+        PlayUISound(panelOpenSound);
     }
 
-    private void LoadVolumeSettings()
+    public void PlayPanelClose()
     {
-        float masterValue = PlayerPrefs.GetFloat(MasterVolumeKey, 1f);
-        float musicValue = PlayerPrefs.GetFloat(MusicVolumeKey, 1f);
-        float sfxValue = PlayerPrefs.GetFloat(SFXVolumeKey, 1f);
+        PlayUISound(panelCloseSound);
+    }
+    #endregion
 
-        masterMixer.SetFloat(MasterVolumeKey, Mathf.Log10(masterValue) * 20);
-        masterMixer.SetFloat(MusicVolumeKey, Mathf.Log10(musicValue) * 20);
-        masterMixer.SetFloat(SFXVolumeKey, Mathf.Log10(sfxValue) * 20);
+    #region Music Control
+    public void PlayMusic(AudioClip musicClip, bool loop = true)
+    {
+        if (musicSource != null && musicClip != null)
+        {
+            musicSource.clip = musicClip;
+            musicSource.loop = loop;
+            musicSource.Play();
+        }
+    }
+
+    public void StopMusic()
+    {
+        if (musicSource != null)
+        {
+            musicSource.Stop();
+        }
+    }
+
+    public void PauseMusic()
+    {
+        if (musicSource != null)
+        {
+            musicSource.Pause();
+        }
+    }
+
+    public void UnpauseMusic()
+    {
+        if (musicSource != null)
+        {
+            musicSource.UnPause();
+        }
+    }
+
+    public void FadeOutMusic(float duration = 1f)
+    {
+        if (musicSource != null)
+        {
+            StartCoroutine(FadeAudioSource(musicSource, musicSource.volume, 0f, duration));
+        }
+    }
+
+    public void FadeInMusic(float targetVolume = 1f, float duration = 1f)
+    {
+        if (musicSource != null)
+        {
+            StartCoroutine(FadeAudioSource(musicSource, musicSource.volume, targetVolume, duration));
+        }
+    }
+
+    private IEnumerator FadeAudioSource(AudioSource audioSource, float startVolume, float targetVolume, float duration)
+    {
+        float elapsedTime = 0f;
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.unscaledDeltaTime;
+            float progress = elapsedTime / duration;
+            audioSource.volume = Mathf.Lerp(startVolume, targetVolume, progress);
+            yield return null;
+        }
+
+        audioSource.volume = targetVolume;
+
+        if (targetVolume <= 0f)
+        {
+            audioSource.Stop();
+        }
     }
     #endregion
 }

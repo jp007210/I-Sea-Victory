@@ -14,7 +14,7 @@ public class WeaponManager : MonoBehaviour
 
     void Awake()
     {
-        Instance = this; // Não usamos DontDestroyOnLoad
+        Instance = this;
     }
 
     void Start()
@@ -34,7 +34,7 @@ public class WeaponManager : MonoBehaviour
 
     void Update()
     {
-        if (PauseMenuManager.GameIsPaused) return;
+        if (PauseManager.GameIsPaused) return;
 
         HandleInput();
 
@@ -159,7 +159,7 @@ public class WeaponManager : MonoBehaviour
     void LoadWeaponData()
     {
         unlockedWeapons.Clear();
-        string unlockedStr = PlayerPrefs.GetString("UnlockedWeapons", "0"); // sempre começa com a primeira arma
+        string unlockedStr = PlayerPrefs.GetString("UnlockedWeapons", "0");
         string[] tokens = unlockedStr.Split(';');
 
         foreach (string token in tokens)
