@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "PowerUps/Motor Fantasma")]
-public class SpeedBoost : PowerUp
+public class MotorFantasma : PowerUp
 {
     public float speedMultiplier = 1.3f;
 

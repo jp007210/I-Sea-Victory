@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "PowerUps/Perseverança do Pescador")]
-public class PassiveHeal : PowerUp
+public class PerseverancaDoPescador : PowerUp
 {
     public int healAmount = 1;
     public float healInterval = 2f;

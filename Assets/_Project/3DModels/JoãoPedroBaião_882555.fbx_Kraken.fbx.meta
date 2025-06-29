@@ -1,0 +1,407 @@
+fileFormatVersion: 2
+guid: b23a372b347aa2749be05a6adbf29497
+ModelImporter:
+  serializedVersion: 22200
+  internalIDToNameTable: []
+  externalObjects: {}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    strictVertexDataChecks: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton:
+    - name: "Jo\xE3oPedroBai\xE3o_882555.fbx_Kraken(Clone)"
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Kraken
+      parentName: "Jo\xE3oPedroBai\xE3o_882555.fbx_Kraken(Clone)"
+      position: {x: 2.7794309, y: 0.5948839, z: 0.06400818}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: KrakenRig
+      parentName: "Jo\xE3oPedroBai\xE3o_882555.fbx_Kraken(Clone)"
+      position: {x: -0.17803478, y: 1.3007586, z: 0.4372711}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 100}
+    - name: Corpo
+      parentName: KrakenRig
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071067}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Tentaculo1.001
+      parentName: Corpo
+      position: {x: -0.008510943, y: 0.00033121527, z: 0.008599885}
+      rotation: {x: 0.42471048, y: 0.08675967, z: 0.5730936, w: 0.6954549}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Tentaculo1.002
+      parentName: Tentaculo1.001
+      position: {x: -7.4505804e-11, y: 0.004612886, z: 4.9825755e-10}
+      rotation: {x: 0.022459226, y: -0.0074927867, z: 0.016275002, w: 0.99958724}
+      scale: {x: 0.99999994, y: 0.9999998, z: 0.99999994}
+    - name: Tentaculo1.003
+      parentName: Tentaculo1.002
+      position: {x: 5.075708e-10, y: 0.0040350226, z: 4.2957252e-10}
+      rotation: {x: -0.022768527, y: 0.012561015, z: -0.028596198, w: 0.9992528}
+      scale: {x: 1, y: 1.0000001, z: 1}
+    - name: Tentaculo1.004
+      parentName: Tentaculo1.003
+      position: {x: 1.6210833e-10, y: 0.0030397214, z: 6.9092493e-10}
+      rotation: {x: 0.003254994, y: 0.02512693, z: 0.027099669, w: 0.9993116}
+      scale: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
+    - name: Tentaculo1.005
+      parentName: Tentaculo1.004
+      position: {x: -7.636845e-10, y: 0.0032895198, z: -4.656613e-10}
+      rotation: {x: -0.04315187, y: 0.048201572, z: 0.009503755, w: 0.99785984}
+      scale: {x: 0.99999994, y: 1, z: 1.0000001}
+    - name: Tentaculo1.006
+      parentName: Tentaculo1.005
+      position: {x: -1.862645e-10, y: 0.003248683, z: -0.0000000021979212}
+      rotation: {x: 0.045758005, y: 0.04131968, z: 0.013953889, w: 0.9980001}
+      scale: {x: 1, y: 1.0000001, z: 0.99999994}
+    - name: Tentaculo1.006_end
+      parentName: Tentaculo1.006
+      position: {x: -0, y: 0.002331621, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Tentaculo2.001
+      parentName: Corpo
+      position: {x: 0.00034911334, y: 0.00033121527, z: 0.011926663}
+      rotation: {x: 0.1876253, y: 0.48491144, z: 0.115388885, w: 0.8463705}
+      scale: {x: 1, y: 1.0000001, z: 0.99999994}
+    - name: Tentaculo2.002
+      parentName: Tentaculo2.001
+      position: {x: -1.11758706e-10, y: 0.0046128854, z: 1.8626451e-11}
+      rotation: {x: 0.012777119, y: -0.007230498, z: -0.017161168, w: 0.99974495}
+      scale: {x: 0.99999994, y: 1.0000001, z: 1}
+    - name: Tentaculo2.003
+      parentName: Tentaculo2.002
+      position: {x: -0, y: 0.0040350202, z: 9.3132255e-12}
+      rotation: {x: -0.00077585824, y: -0.00000005951606, z: 0.00043731544, w: 0.99999964}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Tentaculo2.004
+      parentName: Tentaculo2.003
+      position: {x: -1.8626451e-11, y: 0.0030397181, z: -1.8626451e-11}
+      rotation: {x: -0.011479122, y: 0.00000001496797, z: 0.0064702546, w: 0.9999132}
+      scale: {x: 0.99999994, y: 0.99999994, z: 1}
+    - name: Tentaculo2.005
+      parentName: Tentaculo2.004
+      position: {x: 9.3132255e-12, y: 0.003289515, z: 1.8626451e-11}
+      rotation: {x: -0.0056529115, y: -0.000000007685171, z: 0.0031862878, w: 0.99997896}
+      scale: {x: 0.99999994, y: 0.9999999, z: 0.99999994}
+    - name: Tentaculo2.006
+      parentName: Tentaculo2.005
+      position: {x: 8.381903e-11, y: 0.003248681, z: 1.3969838e-11}
+      rotation: {x: 0.011165939, y: 0.000000021986095, z: -0.006293728, w: 0.99991786}
+      scale: {x: 0.99999994, y: 0.99999994, z: 0.9999999}
+    - name: Tentaculo2.006_end
+      parentName: Tentaculo2.006
+      position: {x: -0, y: 0.0023316217, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Tentaculo3.001
+      parentName: Corpo
+      position: {x: 0.008660539, y: 0.00033121527, z: 0.008348369}
+      rotation: {x: 0.7038249, y: 0.5589247, z: 0.11595589, w: 0.4228334}
+      scale: {x: 1, y: 1.0000001, z: 1.0000001}
+    - name: Tentaculo3.002
+      parentName: Tentaculo3.001
+      position: {x: -1.862645e-10, y: 0.004612888, z: -8.475035e-10}
+      rotation: {x: 0.012903584, y: -0.014615128, z: -0.017066352, w: 0.9996643}
+      scale: {x: 1, y: 0.99999994, z: 0.9999999}
+    - name: Tentaculo3.003
+      parentName: Tentaculo3.002
+      position: {x: 5.401671e-10, y: 0.0040350184, z: 1.0244548e-10}
+      rotation: {x: -0.000775593, y: -0.000000022351733, z: 0.00043719128, w: 0.99999964}
+      scale: {x: 1, y: 0.99999994, z: 1}
+    - name: Tentaculo3.004
+      parentName: Tentaculo3.003
+      position: {x: -6.3329936e-10, y: 0.0030397188, z: 3.259629e-10}
+      rotation: {x: -0.011479437, y: -0.00000003726906, z: 0.006470438, w: 0.9999132}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Tentaculo3.005
+      parentName: Tentaculo3.004
+      position: {x: 2.6077032e-10, y: 0.0032895207, z: -0.0000000011641532}
+      rotation: {x: -0.0056529106, y: 0.000000018625471, z: 0.0031862597, w: 0.99997896}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Tentaculo3.006
+      parentName: Tentaculo3.005
+      position: {x: 5.9604643e-10, y: 0.0032486843, z: -0.0000000021420419}
+      rotation: {x: 0.011165989, y: -0.00000001862853, z: -0.0062937713, w: 0.99991786}
+      scale: {x: 1, y: 1.0000001, z: 0.9999999}
+    - name: Tentaculo3.006_end
+      parentName: Tentaculo3.006
+      position: {x: -0, y: 0.0023316208, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Tentaculo4.001
+      parentName: Corpo
+      position: {x: 0.01211117, y: 0.00033121527, z: -0.00013610303}
+      rotation: {x: 0.9664835, y: 0.10851058, z: -0.22998685, w: 0.0352307}
+      scale: {x: 0.99999994, y: 0.99999994, z: 1}
+    - name: Tentaculo4.002
+      parentName: Tentaculo4.001
+      position: {x: -2.7939677e-11, y: 0.0046128873, z: 4.1909514e-11}
+      rotation: {x: 0.013029092, y: -0.021990819, z: -0.016970638, w: 0.99952924}
+      scale: {x: 1, y: 0.99999994, z: 1}
+    - name: Tentaculo4.003
+      parentName: Tentaculo4.002
+      position: {x: -1.8626451e-11, y: 0.0040350202, z: -3.7252902e-11}
+      rotation: {x: -0.0007755963, y: 1.0541289e-10, z: 0.00043716625, w: 0.99999964}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Tentaculo4.004
+      parentName: Tentaculo4.003
+      position: {x: 2.7939677e-11, y: 0.0030397226, z: 0}
+      rotation: {x: -0.011479333, y: 0.00000002244126, z: 0.006470374, w: 0.9999132}
+      scale: {x: 0.9999999, y: 0.99999994, z: 0.9999998}
+    - name: Tentaculo4.005
+      parentName: Tentaculo4.004
+      position: {x: 1.8626451e-11, y: 0.0032895212, z: -9.3132255e-12}
+      rotation: {x: -0.6435092, y: 0.36097166, z: -0.2090939, w: 0.64177495}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Tentaculo4.006
+      parentName: Tentaculo4.005
+      position: {x: -3.259629e-11, y: 0.0032486792, z: 1.8626451e-11}
+      rotation: {x: 0.011166233, y: 0.00000002224464, z: -0.006293894, w: 0.99991786}
+      scale: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
+    - name: Tentaculo4.006_end
+      parentName: Tentaculo4.006
+      position: {x: -0, y: 0.0023316192, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Tentaculo5.001
+      parentName: Corpo
+      position: {x: 0.008426104, y: 0.00033121527, z: -0.008561}
+      rotation: {x: 0.5848881, y: 0.69248873, z: -0.40831512, w: -0.10790777}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Tentaculo5.002
+      parentName: Tentaculo5.001
+      position: {x: -2.2351741e-10, y: 0.004612886, z: 3.4458936e-10}
+      rotation: {x: 0.013153656, y: -0.029357739, z: -0.016874028, w: 0.99934}
+      scale: {x: 0.9999999, y: 0.9999998, z: 0.9999998}
+    - name: Tentaculo5.003
+      parentName: Tentaculo5.002
+      position: {x: -6.426126e-10, y: 0.004035021, z: 6.3329936e-10}
+      rotation: {x: -0.000775364, y: 0.000000040978186, z: 0.00043703345, w: 0.99999964}
+      scale: {x: 0.99999994, y: 1, z: 0.9999999}
+    - name: Tentaculo5.004
+      parentName: Tentaculo5.003
+      position: {x: 4.1909515e-10, y: 0.0030397212, z: 6.891787e-10}
+      rotation: {x: -0.0114794895, y: 0.0000000037197407, z: 0.006470419, w: 0.9999132}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Tentaculo5.005
+      parentName: Tentaculo5.004
+      position: {x: 6.3329936e-10, y: 0.0032895159, z: 4.656613e-10}
+      rotation: {x: -0.0056526856, y: 0.000000011177623, z: 0.0031861675, w: 0.99997896}
+      scale: {x: 1, y: 1, z: 1.0000001}
+    - name: Tentaculo5.006
+      parentName: Tentaculo5.005
+      position: {x: -4.842877e-10, y: 0.0032486855, z: -1.0244548e-10}
+      rotation: {x: 0.011165318, y: -0.00000003352295, z: -0.006293371, w: 0.99991786}
+      scale: {x: 0.99999994, y: 1, z: 1.0000001}
+    - name: Tentaculo5.006_end
+      parentName: Tentaculo5.006
+      position: {x: -0, y: 0.0023316178, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Tentaculo6.001
+      parentName: Corpo
+      position: {x: -0.00030958265, y: 0.00033121527, z: -0.012046556}
+      rotation: {x: 0.3913285, y: 0.5976231, z: -0.59638685, w: -0.36610296}
+      scale: {x: 0.99999994, y: 1, z: 1}
+    - name: Tentaculo6.002
+      parentName: Tentaculo6.001
+      position: {x: -2.3283063e-11, y: 0.004612886, z: 0}
+      rotation: {x: 0.01327489, y: -0.036554594, z: -0.016778896, w: 0.9991026}
+      scale: {x: 1.0000001, y: 1, z: 1.0000001}
+    - name: Tentaculo6.003
+      parentName: Tentaculo6.002
+      position: {x: 2.7939677e-11, y: 0.00403502, z: 1.8626451e-11}
+      rotation: {x: -0.00077536696, y: -0.000000052222337, z: 0.00043703796, w: 0.99999964}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Tentaculo6.004
+      parentName: Tentaculo6.003
+      position: {x: -1.8626451e-11, y: 0.003039719, z: 4.6566128e-12}
+      rotation: {x: -0.011479452, y: 0.000000007382355, z: 0.0064704404, w: 0.9999132}
+      scale: {x: 1.0000001, y: 1, z: 1}
+    - name: Tentaculo6.005
+      parentName: Tentaculo6.004
+      position: {x: 1.3969838e-11, y: 0.0032895138, z: 1.8626451e-11}
+      rotation: {x: -0.005652555, y: -0.000000044544656, z: 0.0031860862, w: 0.99997896}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Tentaculo6.006
+      parentName: Tentaculo6.005
+      position: {x: -2.0954757e-11, y: 0.003248689, z: -7.916242e-11}
+      rotation: {x: 0.011165184, y: 0.000000022628099, z: -0.0062933024, w: 0.9999179}
+      scale: {x: 0.99999994, y: 1.0000001, z: 1}
+    - name: Tentaculo6.006_end
+      parentName: Tentaculo6.006
+      position: {x: -0, y: 0.0023316166, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Tentaculo7.001
+      parentName: Corpo
+      position: {x: -0.0085504735, y: 0.00033121527, z: -0.00860932}
+      rotation: {x: -0.17067683, y: -0.050616473, z: 0.97899956, w: 0.09933399}
+      scale: {x: 1, y: 0.9999999, z: 1}
+    - name: Tentaculo7.002
+      parentName: Tentaculo7.001
+      position: {x: 3.7252902e-11, y: 0.004612886, z: 6.3329936e-10}
+      rotation: {x: 0.013398963, y: -0.04396438, z: -0.016679987, w: 0.998804}
+      scale: {x: 0.9999999, y: 0.9999998, z: 1}
+    - name: Tentaculo7.003
+      parentName: Tentaculo7.002
+      position: {x: 5.0058585e-10, y: 0.0040350184, z: 6.3329936e-10}
+      rotation: {x: -0.0007753325, y: -0.00000002607715, z: 0.00043700897, w: 0.99999964}
+      scale: {x: 1, y: 0.9999998, z: 0.9999999}
+    - name: Tentaculo7.004
+      parentName: Tentaculo7.003
+      position: {x: -2.1536835e-11, y: 0.0030397212, z: -4.6566126e-11}
+      rotation: {x: 0.42851353, y: -0.5400411, z: -0.58567154, w: 0.42628708}
+      scale: {x: 0.99999994, y: 1, z: 1}
+    - name: Tentaculo7.005
+      parentName: Tentaculo7.004
+      position: {x: -7.45058e-10, y: 0.003289517, z: -6.3329936e-10}
+      rotation: {x: -0.0056523266, y: 0.00000001117633, z: 0.0031859789, w: 0.99997896}
+      scale: {x: 0.99999994, y: 1, z: 1}
+    - name: Tentaculo7.006
+      parentName: Tentaculo7.005
+      position: {x: -1.6763806e-10, y: 0.003248689, z: -0.0000000012665987}
+      rotation: {x: 0.011165013, y: -0.000000018651487, z: -0.0062932004, w: 0.9999179}
+      scale: {x: 0.99999994, y: 1, z: 1}
+    - name: Tentaculo7.006_end
+      parentName: Tentaculo7.006
+      position: {x: -0, y: 0.0023316198, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Tentaculo8.001
+      parentName: Corpo
+      position: {x: -0.011393188, y: 0.00033121527, z: -0.000013739504}
+      rotation: {x: 0.14918166, y: -0.13920882, z: 0.6966241, w: 0.6878086}
+      scale: {x: 0.99999994, y: 0.99999994, z: 1}
+    - name: Tentaculo8.002
+      parentName: Tentaculo8.001
+      position: {x: -2.561137e-11, y: 0.0053928364, z: 1.8626451e-11}
+      rotation: {x: -0.0050493027, y: -0.05126456, z: -0.005909401, w: 0.9986549}
+      scale: {x: 0.99999994, y: 0.9999998, z: 1}
+    - name: Tentaculo8.003
+      parentName: Tentaculo8.002
+      position: {x: 4.6566128e-12, y: 0.004790305, z: 1.8626451e-11}
+      rotation: {x: -0.014661052, y: -0.000000014949288, z: 0.008263762, w: 0.9998584}
+      scale: {x: 1, y: 0.9999999, z: 0.99999994}
+    - name: Tentaculo8.004
+      parentName: Tentaculo8.003
+      position: {x: -2.4447217e-11, y: 0.001996182, z: -3.259629e-11}
+      rotation: {x: 0.017408155, y: 0.00000001500513, z: -0.00981218, w: 0.9998003}
+      scale: {x: 1, y: 1.0000001, z: 1}
+    - name: Tentaculo8.005
+      parentName: Tentaculo8.004
+      position: {x: 3.4924594e-11, y: 0.002789355, z: -1.8626451e-11}
+      rotation: {x: -0.0110174315, y: 0.000000037191267, z: 0.006210022, w: 0.99992007}
+      scale: {x: 1.0000001, y: 1, z: 1}
+    - name: Tentaculo8.006
+      parentName: Tentaculo8.005
+      position: {x: 9.3132255e-12, y: 0.0035372102, z: 6.984919e-12}
+      rotation: {x: 0.007686022, y: -0.000000014860185, z: -0.0043322593, w: 0.9999611}
+      scale: {x: 0.99999994, y: 0.99999994, z: 1}
+    - name: Tentaculo8.006_end
+      parentName: Tentaculo8.006
+      position: {x: -0, y: 0.0038523069, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 1
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 1
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

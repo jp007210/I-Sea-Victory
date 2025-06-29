@@ -5,14 +5,14 @@ public class NavioPirataMovement : MonoBehaviour
     public Transform centerPoint;
     public float rotationRadius = 15f;
     public float rotationSpeed = 30f;
+    public float height = 1.5f; // Altura fixa do navio acima do "mar"
 
-    public NavioPirataAttack attackSystem; // <-- Referência ao ataque para checar vulnerabilidade
+    public NavioPirataAttack attackSystem;
 
     private float currentAngle;
 
     void Update()
     {
-        // ❌ Se estiver vulnerável, não se move
         if (attackSystem != null && attackSystem.isVulnerable)
             return;
 
@@ -24,11 +24,18 @@ public class NavioPirataMovement : MonoBehaviour
 
         float radians = currentAngle * Mathf.Deg2Rad;
         Vector3 offset = new Vector3(Mathf.Cos(radians), 0f, Mathf.Sin(radians)) * rotationRadius;
-        transform.position = centerPoint.position + offset;
 
-        // Sempre olha para o centro
-        Vector3 lookDir = centerPoint.position - transform.position;
-        lookDir.y = 0f;
-        transform.rotation = Quaternion.LookRotation(lookDir);
+        // Aplica a altura ao movimento
+        Vector3 newPos = centerPoint.position + offset;
+        newPos.y = height; // fixa o Y
+
+        transform.position = newPos;
+
+        // Rota o navio com a lateral voltada para o centro
+        Vector3 toCenter = centerPoint.position - transform.position;
+        toCenter.y = 0f;
+
+        Quaternion lookRotation = Quaternion.LookRotation(toCenter);
+        transform.rotation = lookRotation * Quaternion.Euler(0f, 90f, 0f);
     }
 }

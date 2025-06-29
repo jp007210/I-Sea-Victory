@@ -18,7 +18,6 @@ public class DayProgressMeter : MonoBehaviour
     [Header("Animação do Preenchimento")]
     public float fillAnimationDuration = 0.3f;
 
-    private int enemiesDefeated = 0;
     private Coroutine fillAnimationCoroutine;
 
     private void Awake()
@@ -44,22 +43,27 @@ public class DayProgressMeter : MonoBehaviour
 
     public void EnemyWasDefeated()
     {
-        enemiesDefeated++;
+        if (EnemyManager.Instance != null)
+        {
+            EnemyManager.Instance.EnemyDefeated();
+        }
+
         TriggerGlow();
 
         if (fillAnimationCoroutine != null)
             StopCoroutine(fillAnimationCoroutine);
 
         fillAnimationCoroutine = StartCoroutine(AnimateFillAmount());
-
-        if (enemiesDefeated >= enemiesToWin)
-            WinGame();
     }
 
     IEnumerator AnimateFillAmount()
     {
         float startAmount = dayImage.fillAmount;
-        float targetAmount = 1.0f - ((float)enemiesDefeated / enemiesToWin);
+
+        int defeated = EnemyManager.Instance != null ? EnemyManager.Instance.enemiesDefeated : 0;
+        int toDefeat = EnemyManager.Instance != null ? EnemyManager.Instance.enemiesToDefeat : enemiesToWin;
+
+        float targetAmount = 1.0f - ((float)defeated / toDefeat);
         float timer = 0f;
 
         while (timer < fillAnimationDuration)
@@ -72,7 +76,7 @@ public class DayProgressMeter : MonoBehaviour
         dayImage.fillAmount = targetAmount;
     }
 
-void WinGame()
+    void WinGame()
     {
         dayImage.fillAmount = 0f;
     }

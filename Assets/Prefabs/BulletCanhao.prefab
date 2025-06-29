@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_IsKinematic
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3236889066216223808, guid: 354ad2a4ca5c8b84c955f880e9ca3dc8, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4355062162206399266, guid: 354ad2a4ca5c8b84c955f880e9ca3dc8, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5
@@ -64,6 +68,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6966385657487452454, guid: 354ad2a4ca5c8b84c955f880e9ca3dc8, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -540504403829580328, guid: 7f95a9155056716488b28fdd857c5b40, type: 3}
     - target: {fileID: 8006775599070976569, guid: 354ad2a4ca5c8b84c955f880e9ca3dc8, type: 3}
       propertyPath: m_Name
       value: BulletCanhao

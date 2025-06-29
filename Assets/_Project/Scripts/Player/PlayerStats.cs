@@ -1,4 +1,4 @@
-using UnityEngine;
+Ôªøusing UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 
@@ -24,12 +24,12 @@ public class PlayerStats : MonoBehaviour
 
     [Header("Modificadores base")]
     public float baseDamageMultiplier = 1f;       // base para multiplicar dano do player
-    public float baseDamageReduction = 1f;        // base para reduzir dano recebido (1 = sem reduÁ„o)
+    public float baseDamageReduction = 1f;        // base para reduzir dano recebido (1 = sem redu√ß√£o)
     public float baseHealingPerSecond = 0f;       // base de cura passiva
     public float baseMoveSpeed = 5f;
     public float baseCooldownMultiplier = 1f;
 
-    [Header("Modificadores de ProjÈteis")]
+    [Header("Modificadores de Proj√©teis")]
     public float projectileSizeMultiplier = 1f;
     public int extraProjectiles = 0;
 
@@ -49,7 +49,7 @@ public class PlayerStats : MonoBehaviour
     private Coroutine healthAnimationCoroutine;
     private Coroutine glowAnimationCoroutine;
 
-    void Start()
+    void Awake()
     {
         ResetStatsToBase();
 
@@ -65,6 +65,8 @@ public class PlayerStats : MonoBehaviour
         {
             damageGlowImage.color = new Color(damageGlowColor.r, damageGlowColor.g, damageGlowColor.b, 0);
         }
+
+        // ‚úÖ Aplica todos os power ups salvos
         if (PowerUpStorage.Instance != null)
         {
             foreach (var powerUpName in PowerUpStorage.Instance.GetAllUnlockedPowerUps())
@@ -73,6 +75,11 @@ public class PlayerStats : MonoBehaviour
                 if (powerUpAsset != null)
                 {
                     powerUpAsset.Apply(this);
+                    Debug.Log($"[PowerUp reaplicado] {powerUpAsset.powerUpName}");
+                }
+                else
+                {
+                    Debug.LogWarning($"PowerUp '{powerUpName}' n√£o encontrado!");
                 }
             }
         }
@@ -134,7 +141,7 @@ public class PlayerStats : MonoBehaviour
                 break;
 
             case PowerUpType.ProjectileSize:
-                // Pode ser tratado externamente em armas/projetÈis, apenas guarde o valor
+                // Pode ser tratado externamente em armas/projet√©is, apenas guarde o valor
                 // Por exemplo: adicionar um campo neste PlayerStats para usar depois
                 break;
 
@@ -160,7 +167,7 @@ public class PlayerStats : MonoBehaviour
 
             case PowerUpType.ExtraProjectile:
                 // Guarda um valor para ser usado no sistema de armas (arma checar PlayerStats)
-                // Pode guardar em uma vari·vel aqui para o sistema de armas consultar
+                // Pode guardar em uma vari√°vel aqui para o sistema de armas consultar
                 break;
 
             case PowerUpType.Shield:

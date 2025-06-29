@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "PowerUps/Coração de Aço")]
-public class MaxHealthBoost : PowerUp
+public class CoracaoDeAco : PowerUp
 {
     public int bonusHealth = 20;
 

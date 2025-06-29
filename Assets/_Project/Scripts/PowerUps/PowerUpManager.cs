@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -58,14 +58,17 @@ public class PowerUpManager : MonoBehaviour
         if (stats != null)
         {
             currentChoices[index].Apply(stats);
+
+            // ✅ Salva nome no PowerUpStorage
+            PowerUpStorage.Instance?.AddPowerUp(currentChoices[index].powerUpName);
         }
         else
         {
-            Debug.LogError("PlayerStats n�o encontrado no Player!");
+            Debug.LogError("PlayerStats não encontrado no Player!");
         }
 
         panelUI.SetActive(false);
         Time.timeScale = 1f;
-        UnityEngine.SceneManagement.SceneManager.LoadScene("BossStage");
+        onPowerUpChosen?.Invoke();
     }
 }

@@ -71,7 +71,7 @@ public class EnemyMelee : MonoBehaviour
     void RotateTowards(Vector3 target)
     {
         Vector3 direction = target - transform.position;
-        direction.y = 0;
+        direction.y = 2;
         if (direction != Vector3.zero)
         {
             Quaternion targetRotation = Quaternion.LookRotation(direction);

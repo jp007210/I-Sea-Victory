@@ -1,14 +1,14 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 public class PlayerMovement : MonoBehaviour
 {
     public float acceleration = 5f;
     public float maxSpeed = 10f;
-    public float turnSpeed = 2f;
-    public float drag = 0.1f;
+    public float turnSpeed = 100f;
+    public float drag = 0.5f;
 
     private Rigidbody rb;
-    private float currentSpeed = 0f;
     private float inputForward = 0f;
     private float inputTurn = 0f;
 
@@ -16,31 +16,41 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         rb.linearDamping = drag;
+        rb.angularDamping = 5f;
+
+        // ✅ Travar rotação física em X e Z no código também, por segurança
+        rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
     }
 
     void Update()
     {
-        // Entrada do jogador
-        inputForward = Input.GetAxis("Vertical");   // W/S ou ?/?
-        inputTurn = Input.GetAxis("Horizontal");    // A/D ou ?/?
+        inputForward = Input.GetAxis("Vertical");
+        inputTurn = Input.GetAxis("Horizontal");
     }
 
     void FixedUpdate()
     {
-        // Aplicar acelera��o
-        currentSpeed += inputForward * acceleration * Time.fixedDeltaTime;
-        currentSpeed = Mathf.Clamp(currentSpeed, -maxSpeed * 0.5f, maxSpeed); // r� mais lenta
-
-        // Mover o barco para frente
-        Vector3 moveDirection = transform.forward * currentSpeed;
-        rb.linearVelocity = new Vector3(moveDirection.x, rb.linearVelocity.y, moveDirection.z);
-
-        // Girar o barco
-        if (Mathf.Abs(currentSpeed) > 0.1f) // S� rotaciona se estiver em movimento
+        // ✅ Aceleração baseada na frente do barco
+        if (Mathf.Abs(inputForward) > 0.01f)
         {
-            float turnAmount = inputTurn * turnSpeed * Time.fixedDeltaTime * Mathf.Sign(currentSpeed);
-            Quaternion turnOffset = Quaternion.Euler(0, turnAmount * 100f, 0);
-            rb.MoveRotation(rb.rotation * turnOffset);
+            Vector3 force = transform.forward * inputForward * acceleration;
+            rb.AddForce(force, ForceMode.Acceleration);
+        }
+
+        // ✅ Rotação controlada apenas por input
+        if (rb.linearVelocity.magnitude > 0.5f && Mathf.Abs(inputTurn) > 0.01f)
+        {
+            float turn = inputTurn * turnSpeed * Time.fixedDeltaTime;
+            Quaternion rotation = Quaternion.Euler(0, turn, 0);
+            rb.MoveRotation(rb.rotation * rotation);
+        }
+
+        // ✅ Limitar velocidade máxima manualmente
+        Vector3 flatVel = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
+        if (flatVel.magnitude > maxSpeed)
+        {
+            flatVel = flatVel.normalized * maxSpeed;
+            rb.linearVelocity = new Vector3(flatVel.x, rb.linearVelocity.y, flatVel.z);
         }
     }
 }

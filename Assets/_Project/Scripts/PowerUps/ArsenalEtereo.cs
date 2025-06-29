@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "PowerUps/Arsenal Etéreo")]
-public class ExtraProjectile : PowerUp
+public class ArsenalEtereo : PowerUp
 {
     public int extraCount = 1;
 

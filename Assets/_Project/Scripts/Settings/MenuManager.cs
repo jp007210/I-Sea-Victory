@@ -164,7 +164,12 @@ public class MenuManager : MonoBehaviour
     public void StartGame()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene(gameSceneName);
+        if (WeaponManager.Instance != null)
+        {
+            WeaponManager.Instance.ResetWeapons();
+        }
+        ResetPowerUps();
+        SceneManager.LoadScene("EnemyStage");
     }
 
     public void ReturnToMainMenu()
@@ -211,5 +216,11 @@ public class MenuManager : MonoBehaviour
         {
             EventSystem.current.SetSelectedGameObject(null);
         }
+    }
+    public void ResetPowerUps()
+    {
+        PlayerPrefs.DeleteKey("UnlockedPowerUps");
+        PlayerPrefs.Save();
+        Debug.Log("Todos os power ups foram resetados.");
     }
 }

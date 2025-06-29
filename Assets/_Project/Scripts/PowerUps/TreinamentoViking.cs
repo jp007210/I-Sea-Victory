@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "PowerUps/Treinamento Viking")]
-public class CooldownReduction : PowerUp
+public class TreinamentoViking : PowerUp
 {
     public float cooldownMultiplier = 0.8f; // 20% mais rápido
 

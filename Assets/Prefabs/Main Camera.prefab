@@ -150,8 +150,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5c14078ac4a488459fdb53adfe06ec6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 598712175460524412, guid: da240bd0036acf74d83b5d97def3e8d0, type: 3}
-  offset: {x: 0, y: 8, z: -7}
+  target: {fileID: 0}
+  offset: {x: 0, y: 15, z: -15}
   followSpeed: 5
   rotationSpeed: 5
   tiltAngle: 20

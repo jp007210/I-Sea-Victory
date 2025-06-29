@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "PowerUps/Gigantismo")]
-public class ProjectileSizeBoost : PowerUp
+public class Gigantismo : PowerUp
 {
     public float sizeBonus = 1.5f;
 

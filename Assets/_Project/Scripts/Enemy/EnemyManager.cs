@@ -46,6 +46,8 @@ public class EnemyManager : MonoBehaviour
             {
                 awaitingPowerUpChoice = false;
                 progressionStep++;
+
+                SceneManager.LoadScene("BossStage");
             });
         }
     }

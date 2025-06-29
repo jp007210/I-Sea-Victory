@@ -29,18 +29,35 @@ public class TempProjectile : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         if (((1 << other.gameObject.layer) & hitLayers) == 0)
+        {
+            Debug.Log("Camada não está no hitLayers: " + other.gameObject.name);
             return;
-
-        // Tenta dar dano
-        if (other.CompareTag("Enemy"))
-        {
-            EnemyHealth eh = other.GetComponent<EnemyHealth>();
-            if (eh != null) eh.TakeDamage(damage);
         }
-        else if (other.CompareTag("Boss"))
+
+        Debug.Log("Colidiu com: " + other.gameObject.name);
+
+        // Enemy comum
+        EnemyHealth eh = other.GetComponent<EnemyHealth>();
+        if (eh != null)
         {
-            NavioPirataHealth boss = other.GetComponent<NavioPirataHealth>();
-            if (boss != null) boss.TakeDamage(damage);
+            Debug.Log("Acertou EnemyHealth");
+            eh.TakeDamage(damage);
+        }
+
+        // Mini Boss
+        NavioPirataHealth boss = other.GetComponent<NavioPirataHealth>();
+        if (boss != null)
+        {
+            Debug.Log("Acertou NavioPirataHealth");
+            boss.TakeDamage(damage);
+        }
+
+        // Kraken
+        KrakenHealth kraken = other.GetComponentInParent<KrakenHealth>();
+        if (kraken != null)
+        {
+            Debug.Log("Acertou KrakenHealth");
+            kraken.TakeDamage(damage);
         }
 
         // VFX
@@ -51,12 +68,12 @@ public class TempProjectile : MonoBehaviour
             Destroy(impact.gameObject, 2f);
         }
 
-        // Som
+        // SFX
         if (impactClip)
         {
             AudioSource.PlayClipAtPoint(impactClip, transform.position, volume);
         }
 
-        Destroy(gameObject); // destrói projétil
+        Destroy(gameObject);
     }
 }

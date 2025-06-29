@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "PowerUps/Proteção Astral")]
-public class ShieldPowerUp : PowerUp
+public class ProtecaoAstral : PowerUp
 {
     public float rechargeTime = 10f;
 

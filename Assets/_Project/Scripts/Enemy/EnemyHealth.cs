@@ -36,13 +36,6 @@ public class EnemyHealth : MonoBehaviour
             DayProgressMeter.Instance.EnemyWasDefeated();
         }
 
-        if (GameManager.Instance != null)
-        {
-            GameManager.Instance.AddScore(scoreValue);
-        }
-
-        EnemyManager.Instance.EnemyDefeated();
-
         TryDropHeal();
 
         Destroy(gameObject);
@@ -51,7 +44,8 @@ public class EnemyHealth : MonoBehaviour
     {
         if (healItemPrefab != null && Random.value < dropChance)
         {
-            Instantiate(healItemPrefab, transform.position, Quaternion.identity);
+            Vector3 spawnPos = transform.position + Vector3.up * 1f; // Eleva meio metro
+            Instantiate(healItemPrefab, spawnPos, Quaternion.identity);
         }
     }
 }
