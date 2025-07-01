@@ -6,7 +6,9 @@ using System.Collections;
 public class MenuManager : MonoBehaviour
 {
     public static MenuManager Instance;
+    public static bool GameIsPaused = false; // <<< VARIÁVEL UNIFICADA
 
+    [Header("Painéis do Menu")]
     public GameObject mainMenuPanel;
     public GameObject optionsPanel;
     public GameObject audioPanel;
@@ -18,9 +20,14 @@ public class MenuManager : MonoBehaviour
     public GameObject slotSelectionPanel;
     public GameObject logoPanel;
 
+    [Header("Configurações de Pausa")]
+    public RectTransform contentPanel; // <<< PARA CLIQUE FORA DO MENU
+
+    [Header("Animações")]
     public float animationDuration = 0.3f;
     public AnimationCurve animationCurve = null;
 
+    [Header("Cenas")]
     public string mainMenuSceneName = "MainMenu";
     public string gameSceneName = "GameScene";
 
@@ -56,6 +63,51 @@ public class MenuManager : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        // <<< LÓGICA DE PAUSA INTEGRADA >>>
+        // Só processa pausa se estivermos no jogo (não no menu principal)
+        if (IsInGameScene())
+        {
+            // Verifica se não estamos no Game Over
+            if (GameOverScreen.Instance != null && GameOverScreen.Instance.IsGameOver)
+            {
+                return; // Não permite pausar durante Game Over
+            }
+
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                if (GameIsPaused)
+                {
+                    ResumeGame();
+                }
+                else
+                {
+                    PauseGame();
+                }
+            }
+
+            // Clique fora do menu para despausar
+            if (GameIsPaused && pausePanel != null && pausePanel.activeInHierarchy)
+            {
+                if (Input.GetMouseButtonDown(0) && contentPanel != null)
+                {
+                    if (!RectTransformUtility.RectangleContainsScreenPoint(contentPanel, Input.mousePosition))
+                    {
+                        ResumeGame();
+                    }
+                }
+            }
+        }
+    }
+
+    // <<< MÉTODO PARA VERIFICAR SE ESTAMOS EM CENA DE JOGO >>>
+    bool IsInGameScene()
+    {
+        string currentScene = SceneManager.GetActiveScene().name;
+        return currentScene != mainMenuSceneName && currentScene != "MainMenu";
+    }
+
     public void OpenPanel(GameObject panel)
     {
         if (isTransitioning || panel == null) return;
@@ -73,7 +125,6 @@ public class MenuManager : MonoBehaviour
             currentActivePanel.SetActive(false);
         }
 
-        // Só desativa o LogoPanel se não for o menu principal
         if (logoPanel && newPanel != mainMenuPanel)
             SetPanelState(logoPanel, false);
 
@@ -133,7 +184,7 @@ public class MenuManager : MonoBehaviour
     private void SetPanelState(GameObject panel, bool open)
     {
         if (panel == null) return;
-        panel.SetActive(true); // Garante que está ativo antes de mexer no CanvasGroup
+        panel.SetActive(true);
         CanvasGroup canvasGroup = panel.GetComponent<CanvasGroup>();
         if (canvasGroup == null)
         {
@@ -143,7 +194,7 @@ public class MenuManager : MonoBehaviour
         canvasGroup.interactable = open;
         canvasGroup.blocksRaycasts = open;
         if (!open)
-            panel.SetActive(false); // Só desativa depois de garantir alpha 0
+            panel.SetActive(false);
     }
 
     public void OpenMainMenu()
@@ -164,6 +215,7 @@ public class MenuManager : MonoBehaviour
     public void StartGame()
     {
         Time.timeScale = 1f;
+        GameIsPaused = false; // <<< RESET DO ESTADO DE PAUSA
         if (WeaponManager.Instance != null)
         {
             WeaponManager.Instance.ResetWeapons();
@@ -175,12 +227,14 @@ public class MenuManager : MonoBehaviour
     public void ReturnToMainMenu()
     {
         Time.timeScale = 1f;
+        GameIsPaused = false; // <<< RESET DO ESTADO DE PAUSA
         SceneManager.LoadScene(mainMenuSceneName);
     }
 
     public void RestartGame()
     {
         Time.timeScale = 1f;
+        GameIsPaused = false; // <<< RESET DO ESTADO DE PAUSA
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
@@ -193,16 +247,40 @@ public class MenuManager : MonoBehaviour
 #endif
     }
 
+    // <<< MÉTODOS DE PAUSA INTEGRADOS >>>
     public void PauseGame()
     {
         Time.timeScale = 0f;
+        GameIsPaused = true;
         OpenPause();
     }
 
     public void ResumeGame()
     {
         Time.timeScale = 1f;
+        GameIsPaused = false;
         CloseAllPanels();
+    }
+
+    // Métodos para os botões do menu de pausa
+    public void PauseMenuResume()
+    {
+        ResumeGame();
+    }
+
+    public void PauseMenuOptions()
+    {
+        OpenOptions();
+    }
+
+    public void PauseMenuMainMenu()
+    {
+        ReturnToMainMenu();
+    }
+
+    public void PauseMenuQuit()
+    {
+        QuitGame();
     }
 
     public bool IsAnyMenuOpen()
@@ -217,6 +295,7 @@ public class MenuManager : MonoBehaviour
             EventSystem.current.SetSelectedGameObject(null);
         }
     }
+
     public void ResetPowerUps()
     {
         PlayerPrefs.DeleteKey("UnlockedPowerUps");

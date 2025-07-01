@@ -34,7 +34,7 @@ public class WeaponManager : MonoBehaviour
 
     void Update()
     {
-        if (PauseManager.GameIsPaused) return;
+        if (MenuManager.GameIsPaused) return;
 
         HandleInput();
 
