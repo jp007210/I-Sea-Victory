@@ -126,7 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4add2c46bf94794e896c2ab5d76544e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 50
+  maxHealth: 30
   currentHealth: 0
   scoreValue: 1
   healItemPrefab: {fileID: 7330155773121661109, guid: d9f60eaa06f9fdf4eae1613d82b1c691, type: 3}

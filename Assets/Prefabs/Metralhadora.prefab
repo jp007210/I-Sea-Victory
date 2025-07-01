@@ -44,9 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b0950e20252f8c47beb764cd21644f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 8006775599070976569, guid: 354ad2a4ca5c8b84c955f880e9ca3dc8, type: 3}
+  projectilePrefab: {fileID: 886495402367889543, guid: 7d53e3d0ade3d384e9bc67dab0f98bf6, type: 3}
   projectileSpeed: 25
-  damage: 20
+  damage: 5
   cooldown: 0.25
   impactVFX: {fileID: 0}
   impactClip: {fileID: 0}
@@ -54,4 +54,6 @@ MonoBehaviour:
   hitLayers:
     serializedVersion: 2
     m_Bits: 4294967295
+  muzzleVFX: {fileID: 0}
+  shootClip: {fileID: 0}
   projectileLifetime: 5

@@ -47,13 +47,15 @@ MonoBehaviour:
   projectilePrefab: {fileID: 6782551153348709100, guid: 2e98690734be54246b71c7b84e64748b, type: 3}
   projectileSpeed: 10
   damage: 20
-  cooldown: 2
+  cooldown: 3
   impactVFX: {fileID: 0}
   impactClip: {fileID: 0}
   volume: 1
   hitLayers:
     serializedVersion: 2
     m_Bits: 4294967295
+  muzzleVFX: {fileID: 0}
+  shootClip: {fileID: 0}
   projectileLifetime: 10
   cannonCountPerSide: 3
   spacing: 1.5

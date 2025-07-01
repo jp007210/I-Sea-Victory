@@ -46,7 +46,7 @@ public class EnemyManager : MonoBehaviour
             {
                 awaitingPowerUpChoice = false;
                 progressionStep++;
-
+                FindAnyObjectByType<PlayerStats>()?.SaveHealth();
                 SceneManager.LoadScene("BossStage");
             });
         }
@@ -55,13 +55,13 @@ public class EnemyManager : MonoBehaviour
     public void BossDefeated()
     {
         progressionStep++;
-        enemiesToDefeat += 2;
+        enemiesToDefeat += 5;
 
         if (WeaponManager.Instance != null)
         {
             WeaponManager.Instance.UnlockNextWeapon();
         }
-
+        FindAnyObjectByType<PlayerStats>()?.SaveHealth();
         SceneManager.LoadScene("EnemyStage");
     }
 

@@ -53,7 +53,7 @@ public class PlayerStats : MonoBehaviour
     {
         ResetStatsToBase();
 
-        currentHealth = baseMaxHealth;
+        LoadHealth();
 
         if (healthBarSlider != null)
         {
@@ -141,8 +141,7 @@ public class PlayerStats : MonoBehaviour
                 break;
 
             case PowerUpType.ProjectileSize:
-                // Pode ser tratado externamente em armas/projetéis, apenas guarde o valor
-                // Por exemplo: adicionar um campo neste PlayerStats para usar depois
+                projectileSizeMultiplier += powerUp.value;
                 break;
 
             case PowerUpType.MaxHealth:
@@ -166,8 +165,7 @@ public class PlayerStats : MonoBehaviour
                 break;
 
             case PowerUpType.ExtraProjectile:
-                // Guarda um valor para ser usado no sistema de armas (arma checar PlayerStats)
-                // Pode guardar em uma variável aqui para o sistema de armas consultar
+                extraProjectiles += Mathf.RoundToInt(powerUp.value);
                 break;
 
             case PowerUpType.Shield:
@@ -284,6 +282,31 @@ public class PlayerStats : MonoBehaviour
 
         damageGlowImage.color = new Color(damageGlowColor.r, damageGlowColor.g, damageGlowColor.b, 0);
     }
+    public void SaveHealth()
+    {
+        PlayerPrefs.SetInt("PlayerHealth", currentHealth);
+        PlayerPrefs.SetInt("PlayerMaxHealth", baseMaxHealth);
+        PlayerPrefs.Save();
+    }
+
+    public void LoadHealth()
+    {
+        if (PlayerPrefs.HasKey("PlayerHealth"))
+        {
+            baseMaxHealth = PlayerPrefs.GetInt("PlayerMaxHealth", 100);
+            currentHealth = PlayerPrefs.GetInt("PlayerHealth", baseMaxHealth);
+        }
+        else
+        {
+            currentHealth = baseMaxHealth;
+        }
+
+        if (healthBarSlider != null)
+        {
+            healthBarSlider.maxValue = baseMaxHealth;
+            healthBarSlider.value = currentHealth;
+        }
+    }
 
     void Die()
     {
@@ -298,5 +321,8 @@ public class PlayerStats : MonoBehaviour
         {
             Time.timeScale = 0f;
         }
+        PlayerPrefs.DeleteKey("PlayerHealth");
+        PlayerPrefs.DeleteKey("PlayerMaxHealth");
+
     }
 }

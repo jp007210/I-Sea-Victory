@@ -4217,7 +4217,7 @@ PrefabInstance:
     - target: {fileID: 2003060202462643786, guid: b0a26ca38ef63d14cb761bf3c496f653, type: 3}
       propertyPath: playerStats
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 950170655}
     - target: {fileID: 2003060202462643786, guid: b0a26ca38ef63d14cb761bf3c496f653, type: 3}
       propertyPath: playerHealth
       value: 
@@ -4237,7 +4237,7 @@ PrefabInstance:
     - target: {fileID: 6046688216970889618, guid: b0a26ca38ef63d14cb761bf3c496f653, type: 3}
       propertyPath: playerStats
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 950170655}
     - target: {fileID: 6046688216970889618, guid: b0a26ca38ef63d14cb761bf3c496f653, type: 3}
       propertyPath: playerHealth
       value: 
