@@ -10,7 +10,8 @@ public class PowerUpManager : MonoBehaviour
 
     public List<PowerUp> allPowerUps;
     public GameObject panelUI;
-    public Button[] optionButtons;
+
+    public PowerUpOptionUI[] optionUIs;
 
     private PowerUp[] currentChoices;
     private Action onPowerUpChosen;
@@ -44,11 +45,13 @@ public class PowerUpManager : MonoBehaviour
             usedIndices.Add(randomIndex);
 
             currentChoices[i] = allPowerUps[randomIndex];
-            optionButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = currentChoices[i].powerUpName;
 
+            optionUIs[i].Setup(currentChoices[i]);
+
+            Button optionButton = optionUIs[i].GetComponent<Button>();
             int index = i;
-            optionButtons[i].onClick.RemoveAllListeners();
-            optionButtons[i].onClick.AddListener(() => SelectPowerUp(index));
+            optionButton.onClick.RemoveAllListeners();
+            optionButton.onClick.AddListener(() => SelectPowerUp(index));
         }
     }
 
@@ -58,8 +61,6 @@ public class PowerUpManager : MonoBehaviour
         if (stats != null)
         {
             currentChoices[index].Apply(stats);
-
-            // ✅ Salva nome no PowerUpStorage
             PowerUpStorage.Instance?.AddPowerUp(currentChoices[index].powerUpName);
         }
         else

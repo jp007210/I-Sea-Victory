@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: ReforcoSteampunk
   m_EditorClassIdentifier: 
   powerUpType: 1
-  powerUpName: "Refor\xE7o Steampunk"
-  description: 
-  icon: {fileID: 0}
+  powerUpName: Steampunk Armor
+  description: Your boat has now gotten the glamour of an age that never came. Raise
+    your defense permanently!
+  icon: {fileID: 21300000, guid: c100f127ba5b63e4caf5d99a894c2e2a, type: 3}
   value: 0
   duration: 0
   defenseBonus: 1.2

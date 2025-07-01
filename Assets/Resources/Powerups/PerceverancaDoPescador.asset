@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: PerceverancaDoPescador
   m_EditorClassIdentifier: 
   powerUpType: 6
-  powerUpName: "Perceveran\xE7a do Pescador"
-  description: 
-  icon: {fileID: 0}
+  powerUpName: Sea Dog
+  description: Being an old sea dog, all your past experiences on the ocean came
+    flooding back. Passive and automatic healing permanently!
+  icon: {fileID: 21300000, guid: b79c045ef7fba984fa2f8036bf802bb1, type: 3}
   value: 0
   duration: 0
   healAmount: 1

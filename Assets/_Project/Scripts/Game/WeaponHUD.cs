@@ -1,16 +1,18 @@
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class WeaponHUD : MonoBehaviour
 {
-    public TextMeshProUGUI weaponNameText;
-    public Slider cooldownSlider;
+    public Image weaponImage;      // A imagem da arma atual
+    public Slider cooldownSlider;  // O slider de cooldown (já existia)
 
-    public void SetWeaponName(string name)
+    public void SetWeaponImage(Sprite weaponSprite)
     {
-        if (weaponNameText != null)
-            weaponNameText.text = name;
+        if (weaponImage != null && weaponSprite != null)
+        {
+            weaponImage.sprite = weaponSprite;
+            weaponImage.preserveAspect = true; // Mantém a proporção da imagem
+        }
     }
 
     public void UpdateCooldown(float current, float max)

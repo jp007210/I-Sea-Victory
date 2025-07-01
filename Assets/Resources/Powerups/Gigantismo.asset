@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Gigantismo
   m_EditorClassIdentifier: 
   powerUpType: 2
-  powerUpName: Gigantismo
-  description: 
-  icon: {fileID: 0}
+  powerUpName: Gigantism
+  description: A mushroom that came flying out of the sea. Eat it and all your projectiles
+    get bigger!
+  icon: {fileID: 21300000, guid: 09e4667703c8a0041a62febd000f2751, type: 3}
   value: 0
   duration: 0
   sizeBonus: 1.5

@@ -1,13 +1,57 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
+
+[System.Serializable]
+public class WeaponInfo
+{
+    public string weaponName;
+    public Sprite weaponIcon;
+    public GameObject weaponPrefab;
+    public float cooldown = 1f;
+    public float damage = 10f;
+    public float projectileSpeed = 10f;
+    public GameObject projectilePrefab;
+    public VisualEffect impactVFX;
+    public AudioClip impactClip;
+    public float volume = 1f;
+    public LayerMask hitLayers;
+    public float projectileLifetime = 5f;
+
+    [HideInInspector] public float cooldownTimer = 0f;
+
+    public bool CanFire() { return cooldownTimer <= 0; }
+    public void ResetCooldown() { cooldownTimer = cooldown; }
+    public float GetCooldownTimer() { return cooldownTimer; }
+
+    public List<ShotData> GetShots(Vector3 position, Transform firePoint)
+    {
+        var shots = new List<ShotData>();
+        shots.Add(new ShotData
+        {
+            position = position,
+            direction = firePoint.forward,
+            rotation = firePoint.rotation
+        });
+        return shots;
+    }
+
+    [System.Serializable]
+    public struct ShotData
+    {
+        public Vector3 position;
+        public Vector3 direction;
+        public Quaternion rotation;
+    }
+}
 
 public class WeaponManager : MonoBehaviour
 {
     public static WeaponManager Instance;
 
     public Transform firePoint;
-    public List<Weapon> allWeapons = new List<Weapon>();
-    private List<Weapon> unlockedWeapons = new List<Weapon>();
+    public List<WeaponInfo> allWeapons = new List<WeaponInfo>();
+    private List<WeaponInfo> unlockedWeapons = new List<WeaponInfo>();
     private int currentWeaponIndex = 0;
 
     public WeaponHUD weaponHUD;
@@ -22,11 +66,14 @@ public class WeaponManager : MonoBehaviour
         LoadWeaponData();
 
         foreach (var w in allWeapons)
-            w.gameObject.SetActive(false);
-
-        if (unlockedWeapons.Count > 0)
         {
-            unlockedWeapons[currentWeaponIndex].gameObject.SetActive(true);
+            if (w.weaponPrefab != null)
+                w.weaponPrefab.SetActive(false);
+        }
+
+        if (unlockedWeapons.Count > 0 && unlockedWeapons[currentWeaponIndex].weaponPrefab != null)
+        {
+            unlockedWeapons[currentWeaponIndex].weaponPrefab.SetActive(true);
         }
 
         UpdateHUD();
@@ -34,14 +81,19 @@ public class WeaponManager : MonoBehaviour
 
     void Update()
     {
-        if (PauseManager.GameIsPaused) return;
+        if (PauseMenuManager.GameIsPaused) return;
 
         HandleInput();
 
-        Weapon currentWeapon = GetCurrentWeapon();
+        WeaponInfo currentWeapon = GetCurrentWeapon();
         if (currentWeapon == null) return;
 
-        currentWeapon.UpdateCooldown(Time.deltaTime);
+        if (currentWeapon.cooldownTimer > 0)
+        {
+            currentWeapon.cooldownTimer -= Time.deltaTime;
+            if (currentWeapon.cooldownTimer < 0)
+                currentWeapon.cooldownTimer = 0;
+        }
 
         if (Input.GetMouseButtonDown(0) && currentWeapon.CanFire())
         {
@@ -69,9 +121,13 @@ public class WeaponManager : MonoBehaviour
     {
         if (index < 0 || index >= unlockedWeapons.Count || index == currentWeaponIndex) return;
 
-        unlockedWeapons[currentWeaponIndex].gameObject.SetActive(false);
+        if (unlockedWeapons[currentWeaponIndex].weaponPrefab != null)
+            unlockedWeapons[currentWeaponIndex].weaponPrefab.SetActive(false);
+
         currentWeaponIndex = index;
-        unlockedWeapons[currentWeaponIndex].gameObject.SetActive(true);
+
+        if (unlockedWeapons[currentWeaponIndex].weaponPrefab != null)
+            unlockedWeapons[currentWeaponIndex].weaponPrefab.SetActive(true);
 
         SaveWeaponData();
         UpdateHUD();
@@ -79,18 +135,18 @@ public class WeaponManager : MonoBehaviour
 
     void FireWeapon()
     {
-        Weapon weapon = GetCurrentWeapon();
-        List<Weapon.ShotData> shots = weapon.GetShots(firePoint.position, firePoint);
+        WeaponInfo weapon = GetCurrentWeapon();
+        List<WeaponInfo.ShotData> shots = weapon.GetShots(firePoint.position, firePoint);
 
         foreach (var shot in shots)
         {
-            SpawnProjectile(weapon.projectilePrefab, shot, weapon.projectileSpeed);
+            SpawnProjectile(weapon.projectilePrefab, shot, weapon.projectileSpeed, weapon);
         }
 
         weapon.ResetCooldown();
     }
 
-    void SpawnProjectile(GameObject prefab, Weapon.ShotData shot, float speed)
+    void SpawnProjectile(GameObject prefab, WeaponInfo.ShotData shot, float speed, WeaponInfo weapon)
     {
         Vector3 spawnPos = shot.position;
         if (spawnPos.y < 1f) spawnPos.y = 1f;
@@ -102,8 +158,7 @@ public class WeaponManager : MonoBehaviour
         TempProjectile proj = bullet.GetComponent<TempProjectile>();
         if (proj != null)
         {
-            Weapon current = GetCurrentWeapon();
-            proj.Init(current.damage, current.impactVFX, current.impactClip, current.volume, current.hitLayers, current.projectileLifetime);
+            proj.Init(weapon.damage, weapon.impactVFX, weapon.impactClip, weapon.volume, weapon.hitLayers, weapon.projectileLifetime);
         }
 
         Collider playerCol = GameObject.FindWithTag("Player")?.GetComponent<Collider>();
@@ -118,11 +173,15 @@ public class WeaponManager : MonoBehaviour
     {
         if (weaponHUD != null)
         {
-            weaponHUD.SetWeaponName(GetCurrentWeapon().name);
+            WeaponInfo currentWeapon = GetCurrentWeapon();
+            if (currentWeapon != null)
+            {
+                weaponHUD.SetWeaponImage(currentWeapon.weaponIcon);
+            }
         }
     }
 
-    public Weapon GetCurrentWeapon()
+    public WeaponInfo GetCurrentWeapon()
     {
         if (unlockedWeapons.Count == 0) return null;
         return unlockedWeapons[currentWeaponIndex];
@@ -133,17 +192,17 @@ public class WeaponManager : MonoBehaviour
         int nextIndex = unlockedWeapons.Count;
         if (nextIndex < allWeapons.Count)
         {
-            Weapon newWeapon = allWeapons[nextIndex];
+            WeaponInfo newWeapon = allWeapons[nextIndex];
             unlockedWeapons.Add(newWeapon);
             SaveWeaponData();
-            Debug.Log("Desbloqueou arma: " + newWeapon.name);
+            Debug.Log("Desbloqueou arma: " + newWeapon.weaponName);
         }
     }
 
     void SaveWeaponData()
     {
         List<int> indices = new List<int>();
-        foreach (Weapon w in unlockedWeapons)
+        foreach (WeaponInfo w in unlockedWeapons)
         {
             int index = allWeapons.IndexOf(w);
             if (index != -1)

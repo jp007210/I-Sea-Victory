@@ -17,7 +17,10 @@ public abstract class PowerUp : ScriptableObject
 {
     public PowerUpType powerUpType;
     public string powerUpName;
+
+    [TextArea(3, 6)]
     public string description;
+
     public Sprite icon;
     public float value;
     public float duration;

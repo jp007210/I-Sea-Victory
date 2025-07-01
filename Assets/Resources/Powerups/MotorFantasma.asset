@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: MotorFantasma
   m_EditorClassIdentifier: 
   powerUpType: 4
-  powerUpName: Motor Fantasma
-  description: 
-  icon: {fileID: 0}
+  powerUpName: 21st Century Engine
+  description: A weird engine from a time where there's a thing called "Baby Shark".
+    Increase your speed!
+  icon: {fileID: 21300000, guid: ed6649a7411643740905cd0524b27f43, type: 3}
   value: 0
   duration: 0
   speedMultiplier: 1.3
