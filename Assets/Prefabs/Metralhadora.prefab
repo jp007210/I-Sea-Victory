@@ -46,6 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 886495402367889543, guid: 7d53e3d0ade3d384e9bc67dab0f98bf6, type: 3}
   projectileSpeed: 25
+  weaponSprite: {fileID: 21300000, guid: 68de458fabbfeb4439fc59954d51ff57, type: 3}
   damage: 5
   cooldown: 0.25
   impactVFX: {fileID: 0}

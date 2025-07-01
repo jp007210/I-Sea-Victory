@@ -398,7 +398,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 235.6773, y: -418.6468}
+  m_AnchoredPosition: {x: 235.6773, y: -456.1468}
   m_SizeDelta: {x: 178.23, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &115506471
@@ -1420,7 +1420,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 25
+  m_AdditionalShaderChannelsFlag: -1
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -2158,7 +2158,7 @@ MonoBehaviour:
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 1
-  m_ChildControlHeight: 0
+  m_ChildControlHeight: 1
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
@@ -2818,6 +2818,10 @@ PrefabInstance:
     - target: {fileID: 5052220920808817698, guid: da240bd0036acf74d83b5d97def3e8d0, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8506161566533700122, guid: da240bd0036acf74d83b5d97def3e8d0, type: 3}
+      propertyPath: allWeapons.Array.size
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8509701602574977659, guid: da240bd0036acf74d83b5d97def3e8d0, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -4702,6 +4706,7 @@ GameObject:
   - component: {fileID: 1961098140}
   - component: {fileID: 1961098139}
   - component: {fileID: 1961098138}
+  - component: {fileID: 1961098141}
   m_Layer: 5
   m_Name: StartGameButton
   m_TagString: Untagged
@@ -4726,8 +4731,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 235.6773, y: -41.076683}
-  m_SizeDelta: {x: 40, y: 0}
+  m_AnchoredPosition: {x: 235.6773, y: -53.57669}
+  m_SizeDelta: {x: 200, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1961098134
 MonoBehaviour:
@@ -4879,6 +4884,26 @@ MonoBehaviour:
   underlayOnHover: 0.2
   hoverSound: {fileID: 8300000, guid: 6a1a9ba22e62d9747b2067720f6c344b, type: 3}
   clickSound: {fileID: 0}
+--- !u!114 &1961098141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1961098131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: 200
+  m_PreferredHeight: 100
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
 --- !u!1 &2006616905
 GameObject:
   m_ObjectHideFlags: 0
@@ -5112,6 +5137,7 @@ GameObject:
   - component: {fileID: 2090855599}
   - component: {fileID: 2090855604}
   - component: {fileID: 2090855603}
+  - component: {fileID: 2090855605}
   m_Layer: 5
   m_Name: OptionsButton
   m_TagString: Untagged
@@ -5136,7 +5162,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 235.6773, y: -149.93005}
+  m_AnchoredPosition: {x: 235.6773, y: -187.43007}
   m_SizeDelta: {x: 40, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2090855599
@@ -5289,6 +5315,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 2
+--- !u!114 &2090855605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2090855597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: -1
+  m_PreferredHeight: 100
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
 --- !u!1 &2143004662
 GameObject:
   m_ObjectHideFlags: 0
@@ -5304,6 +5350,7 @@ GameObject:
   - component: {fileID: 2143004664}
   - component: {fileID: 2143004669}
   - component: {fileID: 2143004668}
+  - component: {fileID: 2143004670}
   m_Layer: 5
   m_Name: CreditsButton
   m_TagString: Untagged
@@ -5328,7 +5375,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 235.6773, y: -258.78342}
+  m_AnchoredPosition: {x: 235.6773, y: -321.28345}
   m_SizeDelta: {x: 40, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2143004664
@@ -5481,6 +5528,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 2
+--- !u!114 &2143004670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2143004662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: -1
+  m_PreferredHeight: 100
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
 --- !u!1001 &1283255946351027922
 PrefabInstance:
   m_ObjectHideFlags: 0

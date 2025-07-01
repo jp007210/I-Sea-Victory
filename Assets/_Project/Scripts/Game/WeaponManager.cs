@@ -1,57 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.VFX;
-
-[System.Serializable]
-public class WeaponInfo
-{
-    public string weaponName;
-    public Sprite weaponIcon;
-    public GameObject weaponPrefab;
-    public float cooldown = 1f;
-    public float damage = 10f;
-    public float projectileSpeed = 10f;
-    public GameObject projectilePrefab;
-    public VisualEffect impactVFX;
-    public AudioClip impactClip;
-    public float volume = 1f;
-    public LayerMask hitLayers;
-    public float projectileLifetime = 5f;
-
-    [HideInInspector] public float cooldownTimer = 0f;
-
-    public bool CanFire() { return cooldownTimer <= 0; }
-    public void ResetCooldown() { cooldownTimer = cooldown; }
-    public float GetCooldownTimer() { return cooldownTimer; }
-
-    public List<ShotData> GetShots(Vector3 position, Transform firePoint)
-    {
-        var shots = new List<ShotData>();
-        shots.Add(new ShotData
-        {
-            position = position,
-            direction = firePoint.forward,
-            rotation = firePoint.rotation
-        });
-        return shots;
-    }
-
-    [System.Serializable]
-    public struct ShotData
-    {
-        public Vector3 position;
-        public Vector3 direction;
-        public Quaternion rotation;
-    }
-}
 
 public class WeaponManager : MonoBehaviour
 {
     public static WeaponManager Instance;
 
     public Transform firePoint;
-    public List<WeaponInfo> allWeapons = new List<WeaponInfo>();
-    private List<WeaponInfo> unlockedWeapons = new List<WeaponInfo>();
+    public List<Weapon> allWeapons = new List<Weapon>();
+    private List<Weapon> unlockedWeapons = new List<Weapon>();
     private int currentWeaponIndex = 0;
 
     public WeaponHUD weaponHUD;
@@ -66,14 +22,11 @@ public class WeaponManager : MonoBehaviour
         LoadWeaponData();
 
         foreach (var w in allWeapons)
-        {
-            if (w.weaponPrefab != null)
-                w.weaponPrefab.SetActive(false);
-        }
+            w.gameObject.SetActive(false);
 
-        if (unlockedWeapons.Count > 0 && unlockedWeapons[currentWeaponIndex].weaponPrefab != null)
+        if (unlockedWeapons.Count > 0)
         {
-            unlockedWeapons[currentWeaponIndex].weaponPrefab.SetActive(true);
+            unlockedWeapons[currentWeaponIndex].gameObject.SetActive(true);
         }
 
         UpdateHUD();
@@ -81,19 +34,14 @@ public class WeaponManager : MonoBehaviour
 
     void Update()
     {
-        if (PauseMenuManager.GameIsPaused) return;
+        if (PauseManager.GameIsPaused) return;
 
         HandleInput();
 
-        WeaponInfo currentWeapon = GetCurrentWeapon();
+        Weapon currentWeapon = GetCurrentWeapon();
         if (currentWeapon == null) return;
 
-        if (currentWeapon.cooldownTimer > 0)
-        {
-            currentWeapon.cooldownTimer -= Time.deltaTime;
-            if (currentWeapon.cooldownTimer < 0)
-                currentWeapon.cooldownTimer = 0;
-        }
+        currentWeapon.UpdateCooldown(Time.deltaTime);
 
         if (Input.GetMouseButtonDown(0) && currentWeapon.CanFire())
         {
@@ -121,13 +69,9 @@ public class WeaponManager : MonoBehaviour
     {
         if (index < 0 || index >= unlockedWeapons.Count || index == currentWeaponIndex) return;
 
-        if (unlockedWeapons[currentWeaponIndex].weaponPrefab != null)
-            unlockedWeapons[currentWeaponIndex].weaponPrefab.SetActive(false);
-
+        unlockedWeapons[currentWeaponIndex].gameObject.SetActive(false);
         currentWeaponIndex = index;
-
-        if (unlockedWeapons[currentWeaponIndex].weaponPrefab != null)
-            unlockedWeapons[currentWeaponIndex].weaponPrefab.SetActive(true);
+        unlockedWeapons[currentWeaponIndex].gameObject.SetActive(true);
 
         SaveWeaponData();
         UpdateHUD();
@@ -135,18 +79,44 @@ public class WeaponManager : MonoBehaviour
 
     void FireWeapon()
     {
-        WeaponInfo weapon = GetCurrentWeapon();
-        List<WeaponInfo.ShotData> shots = weapon.GetShots(firePoint.position, firePoint);
+        Weapon weapon = GetCurrentWeapon();
+        List<Weapon.ShotData> shots = weapon.GetShots(firePoint.position, firePoint);
 
+        PlayerStats stats = GameObject.FindWithTag("Player").GetComponent<PlayerStats>();
+        int extra = stats != null ? stats.extraProjectiles : 0;
+        float angleStep = 10f;
+
+        // Tiros principais
         foreach (var shot in shots)
         {
-            SpawnProjectile(weapon.projectilePrefab, shot, weapon.projectileSpeed, weapon);
+            SpawnProjectile(weapon.projectilePrefab, shot, weapon.projectileSpeed);
+
+            // Projéteis extras simétricos
+            for (int i = 1; i <= extra; i++)
+            {
+                // Roda à direita e à esquerda do tiro principal
+                var right = new Weapon.ShotData
+                {
+                    position = shot.position,
+                    rotation = shot.rotation * Quaternion.Euler(0, angleStep * i, 0),
+                    direction = shot.rotation * Quaternion.Euler(0, angleStep * i, 0) * Vector3.forward
+                };
+                var left = new Weapon.ShotData
+                {
+                    position = shot.position,
+                    rotation = shot.rotation * Quaternion.Euler(0, -angleStep * i, 0),
+                    direction = shot.rotation * Quaternion.Euler(0, -angleStep * i, 0) * Vector3.forward
+                };
+
+                SpawnProjectile(weapon.projectilePrefab, right, weapon.projectileSpeed);
+                SpawnProjectile(weapon.projectilePrefab, left, weapon.projectileSpeed);
+            }
         }
 
         weapon.ResetCooldown();
     }
 
-    void SpawnProjectile(GameObject prefab, WeaponInfo.ShotData shot, float speed, WeaponInfo weapon)
+    void SpawnProjectile(GameObject prefab, Weapon.ShotData shot, float speed)
     {
         Vector3 spawnPos = shot.position;
         if (spawnPos.y < 1f) spawnPos.y = 1f;
@@ -155,12 +125,38 @@ public class WeaponManager : MonoBehaviour
         Rigidbody rb = bullet.GetComponent<Rigidbody>();
         if (rb != null) rb.linearVelocity = shot.direction * speed;
 
+        // Aplica escala baseada no PlayerStats
+        PlayerStats stats = GameObject.FindWithTag("Player")?.GetComponent<PlayerStats>();
+        if (stats != null)
+        {
+            bullet.transform.localScale *= stats.projectileSizeMultiplier;
+        }
+
+        Weapon current = GetCurrentWeapon();
+
+        // Instancia VFX no disparo
+        if (current.muzzleVFX != null)
+        {
+            var muzzle = Instantiate(current.muzzleVFX, spawnPos, shot.rotation);
+            muzzle.SendEvent("OnShoot");
+            Destroy(muzzle.gameObject, 2f); // tempo de vida do VFX
+        }
+
+        // Reproduz som de disparo
+        if (current.shootClip != null)
+        {
+            AudioSource.PlayClipAtPoint(current.shootClip, spawnPos, current.volume);
+        }
+
+        // Inicializa projétil
         TempProjectile proj = bullet.GetComponent<TempProjectile>();
         if (proj != null)
         {
-            proj.Init(weapon.damage, weapon.impactVFX, weapon.impactClip, weapon.volume, weapon.hitLayers, weapon.projectileLifetime);
+            proj.Init(current.damage, current.impactVFX, null, current.volume, current.hitLayers, current.projectileLifetime);
+            // impactClip foi retirado pois agora o som toca no disparo, não no impacto
         }
 
+        // Ignora colisão com o player
         Collider playerCol = GameObject.FindWithTag("Player")?.GetComponent<Collider>();
         Collider bulletCol = bullet.GetComponent<Collider>();
         if (playerCol != null && bulletCol != null)
@@ -171,17 +167,16 @@ public class WeaponManager : MonoBehaviour
 
     void UpdateHUD()
     {
-        if (weaponHUD != null)
+        Weapon currentWeapon = GetCurrentWeapon();
+
+        if (weaponHUD != null && currentWeapon != null)
         {
-            WeaponInfo currentWeapon = GetCurrentWeapon();
-            if (currentWeapon != null)
-            {
-                weaponHUD.SetWeaponImage(currentWeapon.weaponIcon);
-            }
+            weaponHUD.SetWeaponName(currentWeapon.name);
+            weaponHUD.SetWeaponImage(currentWeapon.weaponSprite); // Atualiza a imagem da arma
         }
     }
 
-    public WeaponInfo GetCurrentWeapon()
+    public Weapon GetCurrentWeapon()
     {
         if (unlockedWeapons.Count == 0) return null;
         return unlockedWeapons[currentWeaponIndex];
@@ -192,17 +187,17 @@ public class WeaponManager : MonoBehaviour
         int nextIndex = unlockedWeapons.Count;
         if (nextIndex < allWeapons.Count)
         {
-            WeaponInfo newWeapon = allWeapons[nextIndex];
+            Weapon newWeapon = allWeapons[nextIndex];
             unlockedWeapons.Add(newWeapon);
             SaveWeaponData();
-            Debug.Log("Desbloqueou arma: " + newWeapon.weaponName);
+            Debug.Log("Desbloqueou arma: " + newWeapon.name);
         }
     }
 
     void SaveWeaponData()
     {
         List<int> indices = new List<int>();
-        foreach (WeaponInfo w in unlockedWeapons)
+        foreach (Weapon w in unlockedWeapons)
         {
             int index = allWeapons.IndexOf(w);
             if (index != -1)

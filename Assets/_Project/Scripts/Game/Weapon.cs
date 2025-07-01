@@ -6,6 +6,7 @@ public abstract class Weapon : MonoBehaviour
 {
     public GameObject projectilePrefab;
     public float projectileSpeed = 25f;
+    public Sprite weaponSprite;
 
     [Header("Dano")]
     public float damage = 20f;  // <--- adicione isso!

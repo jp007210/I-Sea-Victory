@@ -5730,6 +5730,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3241141273165200350, guid: 8ffc3263f1dc7e249a1a0c776701d75a, type: 3}
+      propertyPath: weaponImage
+      value: 
+      objectReference: {fileID: 1860581722}
     - target: {fileID: 5196379342956841441, guid: 8ffc3263f1dc7e249a1a0c776701d75a, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -5823,6 +5827,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8ffc3263f1dc7e249a1a0c776701d75a, type: 3}
+--- !u!114 &1860581722 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2870552477167555847, guid: 8ffc3263f1dc7e249a1a0c776701d75a, type: 3}
+  m_PrefabInstance: {fileID: 1860581721}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1868283201 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4bdb9b01bdab93a41bb3dfc5e4801f65, type: 3}
