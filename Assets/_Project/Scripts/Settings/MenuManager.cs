@@ -146,11 +146,11 @@ public class MenuManager : MonoBehaviour
             panel.SetActive(false); // Só desativa depois de garantir alpha 0
     }
 
-    public void OpenMainMenu()
+    public void OpenMainMenu() 
     {
         OpenPanel(mainMenuPanel);
         if (logoPanel) SetPanelState(logoPanel, true);
-        DeselectAllButtons();
+        DeselectAllButtons(); 
     }
     public void OpenOptions() => OpenPanel(optionsPanel);
     public void OpenAudio() => OpenPanel(audioPanel);
