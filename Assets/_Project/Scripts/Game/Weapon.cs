@@ -21,6 +21,10 @@ public abstract class Weapon : MonoBehaviour
     public float volume = 1f;
     public LayerMask hitLayers = ~0; // padrão: colide com tudo
 
+    [Header("Shoot")]
+    public VisualEffect muzzleVFX;
+    public AudioClip shootClip;
+
     [Header("Projétil")]
     public float projectileLifetime = 5f;
 

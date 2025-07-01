@@ -82,9 +82,35 @@ public class WeaponManager : MonoBehaviour
         Weapon weapon = GetCurrentWeapon();
         List<Weapon.ShotData> shots = weapon.GetShots(firePoint.position, firePoint);
 
+        PlayerStats stats = GameObject.FindWithTag("Player").GetComponent<PlayerStats>();
+        int extra = stats != null ? stats.extraProjectiles : 0;
+        float angleStep = 10f;
+
+        // Tiros principais
         foreach (var shot in shots)
         {
             SpawnProjectile(weapon.projectilePrefab, shot, weapon.projectileSpeed);
+
+            // Projéteis extras simétricos
+            for (int i = 1; i <= extra; i++)
+            {
+                // Roda à direita e à esquerda do tiro principal
+                var right = new Weapon.ShotData
+                {
+                    position = shot.position,
+                    rotation = shot.rotation * Quaternion.Euler(0, angleStep * i, 0),
+                    direction = shot.rotation * Quaternion.Euler(0, angleStep * i, 0) * Vector3.forward
+                };
+                var left = new Weapon.ShotData
+                {
+                    position = shot.position,
+                    rotation = shot.rotation * Quaternion.Euler(0, -angleStep * i, 0),
+                    direction = shot.rotation * Quaternion.Euler(0, -angleStep * i, 0) * Vector3.forward
+                };
+
+                SpawnProjectile(weapon.projectilePrefab, right, weapon.projectileSpeed);
+                SpawnProjectile(weapon.projectilePrefab, left, weapon.projectileSpeed);
+            }
         }
 
         weapon.ResetCooldown();
@@ -99,13 +125,38 @@ public class WeaponManager : MonoBehaviour
         Rigidbody rb = bullet.GetComponent<Rigidbody>();
         if (rb != null) rb.linearVelocity = shot.direction * speed;
 
+        // Aplica escala baseada no PlayerStats
+        PlayerStats stats = GameObject.FindWithTag("Player")?.GetComponent<PlayerStats>();
+        if (stats != null)
+        {
+            bullet.transform.localScale *= stats.projectileSizeMultiplier;
+        }
+
+        Weapon current = GetCurrentWeapon();
+
+        // Instancia VFX no disparo
+        if (current.muzzleVFX != null)
+        {
+            var muzzle = Instantiate(current.muzzleVFX, spawnPos, shot.rotation);
+            muzzle.SendEvent("OnShoot");
+            Destroy(muzzle.gameObject, 2f); // tempo de vida do VFX
+        }
+
+        // Reproduz som de disparo
+        if (current.shootClip != null)
+        {
+            AudioSource.PlayClipAtPoint(current.shootClip, spawnPos, current.volume);
+        }
+
+        // Inicializa projétil
         TempProjectile proj = bullet.GetComponent<TempProjectile>();
         if (proj != null)
         {
-            Weapon current = GetCurrentWeapon();
-            proj.Init(current.damage, current.impactVFX, current.impactClip, current.volume, current.hitLayers, current.projectileLifetime);
+            proj.Init(current.damage, current.impactVFX, null, current.volume, current.hitLayers, current.projectileLifetime);
+            // impactClip foi retirado pois agora o som toca no disparo, não no impacto
         }
 
+        // Ignora colisão com o player
         Collider playerCol = GameObject.FindWithTag("Player")?.GetComponent<Collider>();
         Collider bulletCol = bullet.GetComponent<Collider>();
         if (playerCol != null && bulletCol != null)

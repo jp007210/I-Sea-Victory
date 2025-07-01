@@ -28,6 +28,9 @@ public class TempProjectile : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        if (other.CompareTag("Bullet"))
+            return;
+
         if (((1 << other.gameObject.layer) & hitLayers) == 0)
         {
             Debug.Log("Camada não está no hitLayers: " + other.gameObject.name);
